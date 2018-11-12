@@ -7,10 +7,14 @@ class MoviePage extends Component {
   state ={
     movieDetails:[]
   }
-  render(){
+  componentWillReceiveProps(){
     let {movieId} = this.props.match.params
     axios.get(`https://api.themoviedb.org/3/movie/${movieId}?api_key=c62a78a0d2d87be14d317940c5c290b5`)
       .then((res)=>{this.setState({movieDetails:res.data})})
+  }
+  render(){
+    
+
     return(
       <Grid centered inverted>
         <Grid.Row>

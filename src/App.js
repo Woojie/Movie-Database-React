@@ -9,12 +9,12 @@ import axios from 'axios'
 
 class App extends Component {
   state = {
-    movies: []
+    movies: [],
+    movieDetail: {}
   }
   
   getData = (params) =>{
     let url;
-
     if(params === '/'){
       url = 'https://api.themoviedb.org/3/movie/popular?api_key=c62a78a0d2d87be14d317940c5c290b5&language=en-US&page=1'
     }else if(params ==='/HighRating'){
@@ -24,16 +24,26 @@ class App extends Component {
     }
     axios.get(url)
     .then((res)=>this.setState({movies:res.data.results}))
-
   }
+  getMovieDetails = (id) => {
+    axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=c62a78a0d2d87be14d317940c5c290b5`)
+    .then((res)=>this.setState({movieDetail:res.data}))
+  }
+
   render() {
     return (
       <div className="App">
         <Navbar getData={this.getData} />
         <Switch>
-          <Route path='/' exact render={(props)=>(<MovieList {...props} getData={this.getData} movies={this.state.movies} /> )} />
-          <Route path='/HighGrossing' render={(props)=>(<MovieList {...props} getData={this.getData} movies={this.state.movies} />)} />
-          <Route path='/HighRating' render={(props)=>(<MovieList {...props} getData={this.getData} movies={this.state.movies} />)} />
+        <Route path='/' exact render={(props)=>(<MovieList 
+        {...props} getData={this.getData} 
+        movies={this.state.movies}
+        getMovieDetails ={this.getMovieDetails} /> )} />
+
+          <Route path='/:params' exact render={(props)=>(<MovieList 
+          {...props} getData={this.getData} 
+          movies={this.state.movies}
+          getMovieDetails={this.getMovieDetails} /> )} />
           <Route path='/movie/:movieId' render={(props)=>(<MoviePage {...props} />)} />
           <Route path='/TrendyPeople' render={(props)=>(<MovieList {...props} />)} />
 

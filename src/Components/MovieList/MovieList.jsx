@@ -5,7 +5,6 @@ import Movie from './Movie'
 class MovieList extends Component {
 
   componentDidMount(){
-
     let {match} = this.props
     if(match.url === '/'){
       this.props.getData('/')
@@ -15,7 +14,6 @@ class MovieList extends Component {
       this.props.getData('/HighGrossing')
     }
   }
-
 
   render(){
     let {match} = this.props
@@ -36,10 +34,10 @@ class MovieList extends Component {
     rating = {movie.vote_average}
     poster = {movie.poster_path}
     release = {movie.release_date}
+    getMovieDetails = {this.props.getMovieDetails}
     />)
 
     return(
-
       <Grid centered inverted>
         <Grid.Row>
           <Grid.Column width={5} />
