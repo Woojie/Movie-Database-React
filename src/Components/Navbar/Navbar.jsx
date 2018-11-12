@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import {Menu,Segment, Form, Input, Radio, Button} from 'semantic-ui-react'
-
+import {Menu,Segment, Form, Input, Radio, Button, Icon, Label} from 'semantic-ui-react'
+import {NavLink} from 'react-router-dom';
 import './Navbar.css';
 
 class App extends Component {
@@ -18,33 +18,57 @@ class App extends Component {
       <div className="App">
         <Segment inverted>
           <Menu inverted pointing secondary stackable>
-          <Menu.Item 
+          <NavLink to='/'><Menu.Item 
+            as='label'
             name='home' 
             active={activeItem === 'home'} 
             onClick={this.handleItemClick} 
-          />
-          <Menu.Item 
+          >
+            <Icon name='home' fitted />
+            Home
+          </Menu.Item></NavLink>
+
+          <NavLink to='/HighRating'><Menu.Item 
+            as='label'
             name='highest rated' 
             active={activeItem === 'highest rated'} 
-            onClick={this.handleItemClick}
-          />
-          <Menu.Item 
+            onClick={this.handleItemClick}>
+            <Icon name='star outline' fitted />
+            Highest Rated
+          </Menu.Item>
+          </NavLink>
+
+          <NavLink to='/HighGrossing'><Menu.Item 
             name='highest grossing' 
+            as='label'
             active={activeItem === 'highest grossing'} 
-            onClick={this.handleItemClick}
-          />
-          <Menu.Item 
+            onClick={this.handleItemClick}>
+            <Icon name='dollar sign' fitted />
+            Highest Grossing
+            </Menu.Item>
+          </NavLink>
+          
+          <NavLink to='/favorites'><Menu.Item 
             name='favorites' 
+            as='label'
             active={activeItem === 'favorites'} 
-            onClick={this.handleItemClick} 
-          />
-          <Menu.Item 
+            onClick={this.handleItemClick}>
+            <Icon name='favorite' fitted />
+            Favorites
+          </Menu.Item>
+          </NavLink>
+
+          <NavLink to='/TrendyPeople'><Menu.Item 
             name='trending people' 
+            as='label'
             active={activeItem === 'trending people'} 
-            onClick={this.handleItemClick} 
-          />
-          <Menu.Item position='right'>
-            
+            onClick={this.handleItemClick}>
+          <Icon name='user' fitted />
+          Trending People
+          </Menu.Item>
+          </NavLink>
+
+          <Menu.Item position='right'>            
           </Menu.Item>
           <Menu.Item id="noPadding" position='right'>
             <Form inverted>
@@ -63,7 +87,7 @@ class App extends Component {
                   onChange={this.handleRadio} />
 
               <Form.Field control={Input} placeholder='Search..' />
-              <Form.Field control={Button}>Search</Form.Field>
+              <Form.Field><Button basic inverted color='orange'>Search</Button></Form.Field>
               </Form.Group>
             </Form>
           </Menu.Item>

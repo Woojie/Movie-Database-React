@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import {Menu} from 'semantic-ui-react'
-import {Route, Switch, Redirect} from 'react-router-dom';
+import {Route, Switch} from 'react-router-dom';
 import Navbar from './Components/Navbar/Navbar'
 import './App.css';
 import Home from './Components/Home/Home'
@@ -10,8 +9,15 @@ class App extends Component {
     return (
       <div className="App">
         <Navbar />
-        <Route path='/' exact render={(props)=>(<Home {...props} />)} />
+        <Switch>
+          <Route path='/' exact render={(props)=>(<Home {...props} />)} />
+          <Route path='/HighGrosing' render={(props)=>(<Home {...props} />)} />
+          <Route path='/HighRating' render={(props)=>(<Home {...props} />)} />
+          <Route path='/movie/:movieId' render={(props)=>(<Home {...props} />)} />
+          <Route path='/TrendyPeople' render={(props)=>(<Home {...props} />)} />
 
+
+        </Switch>
       </div>
     );
   }
