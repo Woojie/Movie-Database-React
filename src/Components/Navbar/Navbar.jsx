@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
-import {Menu,Segment, Form, Input, Radio, Button, Icon, Label} from 'semantic-ui-react'
+import {Menu,Segment, Form, Input, Radio, Button, Icon} from 'semantic-ui-react'
 import {NavLink} from 'react-router-dom';
 import './Navbar.css';
 
 class App extends Component {
   state={
-    activeItem: 'home',
+    activeItem: '',
     radioCheck: 1
   }
 
   handleItemClick = (e, {name}) =>{this.setState({activeItem: name})}
   handleRadio = (e, {value})=>{this.setState({radioCheck: value})}
+  componentDidMount(){
+    this.setState({activeItem:window.location.pathname})}
 
   render() {
+
     const {activeItem, radioCheck} = this.state
     return (
       <div className="App">
@@ -20,30 +23,30 @@ class App extends Component {
           <Menu inverted pointing secondary stackable>
           <NavLink to='/'><Menu.Item 
             as='label'
-            name='home' 
-            active={activeItem === 'home'} 
+            name='/' 
+            active={activeItem === '/'} 
             onClick={this.handleItemClick} 
           >
-            <Icon name='home' fitted />
+            <Icon inverted color="orange" name='home' fitted />
             Home
           </Menu.Item></NavLink>
 
           <NavLink to='/HighRating'><Menu.Item 
             as='label'
-            name='highest rated' 
-            active={activeItem === 'highest rated'} 
+            name='/HighRating' 
+            active={activeItem === '/HighRating'} 
             onClick={this.handleItemClick}>
-            <Icon name='star outline' fitted />
+            <Icon inverted color='orange' name='star outline' fitted />
             Highest Rated
           </Menu.Item>
           </NavLink>
 
           <NavLink to='/HighGrossing'><Menu.Item 
-            name='highest grossing' 
+            name='/HighGrossing' 
             as='label'
-            active={activeItem === 'highest grossing'} 
+            active={activeItem === '/HighGrossing'} 
             onClick={this.handleItemClick}>
-            <Icon name='dollar sign' fitted />
+            <Icon inverted color='green' name='dollar sign' fitted />
             Highest Grossing
             </Menu.Item>
           </NavLink>
@@ -53,17 +56,17 @@ class App extends Component {
             as='label'
             active={activeItem === 'favorites'} 
             onClick={this.handleItemClick}>
-            <Icon name='favorite' fitted />
+            <Icon inverted color='green' name='favorite' fitted />
             Favorites
           </Menu.Item>
           </NavLink>
 
           <NavLink to='/TrendyPeople'><Menu.Item 
-            name='trending people' 
+            name='/TrendyPeople' 
             as='label'
-            active={activeItem === 'trending people'} 
+            active={activeItem === '/TrendyPeople'} 
             onClick={this.handleItemClick}>
-          <Icon name='user' fitted />
+          <Icon inverted color='green' name='user' fitted />
           Trending People
           </Menu.Item>
           </NavLink>

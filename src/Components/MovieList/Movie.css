@@ -1,4 +1,4 @@
-#movieItems{
+#movieItems {
   box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border: #000 1px solid;
   margin-bottom: 3em;
@@ -6,7 +6,7 @@
   text-align: left
 }
 
-#shadows-image{
+#shadows-image {
   box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border: #000 1px solid;
   margin-bottom: 2em;
@@ -14,25 +14,25 @@
   margin-bottom: 0
 }
 
-#itemContent{
+#itemContent {
   padding-top: 1.5em
 }
 
-
-#itemHeader{
+#itemHeader {
   color: white;
 
   text-shadow:
-   -1px -1px 0 #000,
+    -1px -1px 0 #000,
     1px -1px 0 #000,
     -1px 1px 0 #000,
-     2px 2px 0 #000;
+    2px 2px 0 #000;
 }
 
-#itemMeta{
+#itemMeta {
   color: white;
 }
 
-#itemInfo{
+#itemInfo {
   color: rgb(206, 204, 204);
 }
+

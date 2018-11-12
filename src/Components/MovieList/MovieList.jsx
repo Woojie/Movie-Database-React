@@ -3,20 +3,32 @@ import axios from 'axios'
 import {Grid, Header, Divider, Item} from 'semantic-ui-react'
 import Movie from './Movie'
 
-class Home extends Component {
+class MovieList extends Component {
 state ={
-  movies: []
+  movies: [],
+  url: '',
+  title: '',
+
 }
 
-componentDidMount(){
-  let url = 'https://api.themoviedb.org/3/movie/popular?api_key=c62a78a0d2d87be14d317940c5c290b5&language=en-US&page=1'
-  axios.get(url)
-    .then((res)=>
-      this.setState({movies:res.data.results})
-    )
-}
   render(){
+    let title;
+    let url;
+    let {match} = this.props
+    if(match.url === '/'){
+      title = "Trending Movies"
+      url = 'https://api.themoviedb.org/3/movie/popular?api_key=c62a78a0d2d87be14d317940c5c290b5&language=en-US&page=1'
+    }else if(match.url ==='/HighRating'){
+      title = 'Highest Rated Movies'
+      url = `https://api.themoviedb.org/3/movie/top_rated?api_key=c62a78a0d2d87be14d317940c5c290b5&language=en-US&page=1`
+    }else if(match.url === '/HighGrossing'){
+      title = "Highest Grossing Films"
+      url = 'https://api.themoviedb.org/3/discover/movie?api_key=c62a78a0d2d87be14d317940c5c290b5&language=en-US&sort_by=revenue.desc&include_adult=false&include_video=false&page=1'
+    }
+  
 
+    axios.get(url)
+    .then((res)=>this.setState({movies:res.data.results}))
     let movies = this.state.movies.map((movie)=> 
     <Movie
     title={movie.title} 
@@ -36,7 +48,7 @@ componentDidMount(){
           <Grid.Column width={5} />
           <Grid.Column width={6} textAlign='center'>
           <Divider hidden/>
-            <Header inverted as='h1' content='Trending Movies' />
+            <Header inverted as='h1' content={title} />
             <Divider />
           </Grid.Column>
           <Grid.Column width={5} />
@@ -57,4 +69,4 @@ componentDidMount(){
   }
 }
 
-export default Home
+export default MovieList
