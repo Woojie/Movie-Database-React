@@ -31,20 +31,24 @@ class App extends Component {
   }
 
   render() {
+    const {movies, movieDetail} = this.state
+    const {getData, getMovieDetails} = this
     return (
       <div className="App">
-        <Navbar getData={this.getData} />
+        <Navbar getData={getData} />
         <Switch>
-        <Route path='/' exact render={(props)=>(<MovieList 
-        {...props} getData={this.getData} 
-        movies={this.state.movies}
-        getMovieDetails ={this.getMovieDetails} /> )} />
+          <Route path='/' exact render={(props)=>(<MovieList 
+          {...props} getData={getData} 
+          movies={movies}
+          getMovieDetails ={getMovieDetails} /> )} />
 
           <Route path='/:params' exact render={(props)=>(<MovieList 
-          {...props} getData={this.getData} 
-          movies={this.state.movies}
-          getMovieDetails={this.getMovieDetails} /> )} />
-          <Route path='/movie/:movieId' render={(props)=>(<MoviePage {...props} />)} />
+          {...props} getData={getData} 
+          movies={movies}
+          getMovieDetails={getMovieDetails} /> )} />
+
+          <Route path='/movie/:movieId' render={(props)=>(<MoviePage {...props} movieDetail={movieDetail} />)} />
+
           <Route path='/TrendyPeople' render={(props)=>(<MovieList {...props} />)} />
 
 

@@ -4,14 +4,7 @@ import axios from 'axios'
 
 
 class MoviePage extends Component {
-  state ={
-    movieDetails:[]
-  }
-  componentWillReceiveProps(){
-    let {movieId} = this.props.match.params
-    axios.get(`https://api.themoviedb.org/3/movie/${movieId}?api_key=c62a78a0d2d87be14d317940c5c290b5`)
-      .then((res)=>{this.setState({movieDetails:res.data})})
-  }
+
   render(){
     
 
@@ -21,7 +14,7 @@ class MoviePage extends Component {
           <Grid.Column width={5} />
           <Grid.Column width={6} textAlign='center'>
             <Divider hidden/>
-            <Header inverted as='h1' content={this.state.movieDetails.title} />
+            <Header inverted as='h1' content={this.props.movieDetail.title} />
             <Divider />
             </Grid.Column>
           <Grid.Column width={5} />
