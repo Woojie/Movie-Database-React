@@ -10,10 +10,12 @@ import axios from 'axios'
 class App extends Component {
   state = {
     movies: [],
-    movieDetail: {}
+    movieDetail: {},
+    loader: true
   }
   
   getData = (params) =>{
+    this.setState({loader:true})
     let url;
     if(params === '/'){
       url = 'https://api.themoviedb.org/3/movie/popular?api_key=c62a78a0d2d87be14d317940c5c290b5&language=en-US&page=1'
@@ -23,8 +25,9 @@ class App extends Component {
       url = 'https://api.themoviedb.org/3/discover/movie?api_key=c62a78a0d2d87be14d317940c5c290b5&language=en-US&sort_by=revenue.desc&include_adult=false&include_video=false&page=1'
     }
     axios.get(url)
-    .then((res)=>this.setState({movies:res.data.results}))
+    .then((res)=>this.setState({movies:res.data.results, loader:false}))
   }
+
   getMovieDetails = (id) => {
     axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=c62a78a0d2d87be14d317940c5c290b5`)
     .then((res)=>this.setState({movieDetail:res.data}))
@@ -36,18 +39,21 @@ class App extends Component {
     return (
       <div className="App">
         <Navbar getData={getData} />
+
         <Switch>
           <Route path='/' exact render={(props)=>(<MovieList 
           {...props} getData={getData} 
           movies={movies}
-          getMovieDetails ={getMovieDetails} /> )} />
+          getMovieDetails ={getMovieDetails}
+          loader={this.state.loader} /> )} />
 
           <Route path='/:params' exact render={(props)=>(<MovieList 
           {...props} getData={getData} 
           movies={movies}
-          getMovieDetails={getMovieDetails} /> )} />
+          getMovieDetails={getMovieDetails}
+          loader={this.state.loader} /> )} />
 
-          <Route path='/movie/:movieId' render={(props)=>(<MoviePage {...props} movieDetail={movieDetail} />)} />
+          <Route path='/movie/:movieId' render={(props)=>(<MoviePage {...props} getMovieDetails={getMovieDetails} movieDetail={movieDetail} />)} />
 
           <Route path='/TrendyPeople' render={(props)=>(<MovieList {...props} />)} />
 

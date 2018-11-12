@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Grid, Header, Divider, Item,} from 'semantic-ui-react'
+import {Grid, Header, Divider, Item, Loader, Dimmer} from 'semantic-ui-react'
 import Movie from './Movie'
 
 class MovieList extends Component {
@@ -16,7 +16,7 @@ class MovieList extends Component {
   }
 
   render(){
-    let {match} = this.props
+    let {match, loader} = this.props
     let title;
     if(match.url === '/'){
       title = "Popular Movies"
@@ -38,12 +38,14 @@ class MovieList extends Component {
     />)
 
     return(
+      <div>
+      {loader ? <Dimmer active><Loader /></Dimmer> :(
       <Grid centered inverted>
         <Grid.Row>
           <Grid.Column width={5} />
           <Grid.Column width={6} textAlign='center'>
           <Divider hidden/>
-            <Header inverted as='h1' content={title} />
+            <Header inverted as='h1' color='orange' content={title} />
             <Divider />
           </Grid.Column>
           <Grid.Column width={5} />
@@ -60,8 +62,11 @@ class MovieList extends Component {
           <Grid.Column width={4} />
         </Grid.Row>
       </Grid>
+      )}
+      </div>
     )
   }
+  
 }
 
 export default MovieList
