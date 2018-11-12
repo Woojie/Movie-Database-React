@@ -2,6 +2,7 @@ import React from "react";
 import { Item} from "semantic-ui-react";
 import "./Movie.css";
 import ReviewLabel from '../ReviewLabel/ReviewLabel'
+import {NavLink} from 'react-router-dom';
 
 let Movie = ({ title, overview, poster, id, rating, release }) => {
 
@@ -11,9 +12,9 @@ let Movie = ({ title, overview, poster, id, rating, release }) => {
       id="shadows-image"
       src={`http://image.tmdb.org/t/p/w780/${poster}`}
     />
-    <Item.Content id="itemContent" >
+    <Item.Content>
       <ReviewLabel rating={rating} />
-      <Item.Header id="itemHeader" as="h1" content={title} />
+      <NavLink to={`/movie/${id}`}><Item.Header id="itemHeader" as="h2" content={title} /></NavLink>
 
       <Item.Meta id="itemMeta">
         Release Date: {release}

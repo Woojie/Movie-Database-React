@@ -1,35 +1,33 @@
 import React, { Component } from 'react';
-import axios from 'axios'
-import {Grid, Header, Divider, Item} from 'semantic-ui-react'
+import {Grid, Header, Divider, Item,} from 'semantic-ui-react'
 import Movie from './Movie'
 
 class MovieList extends Component {
-state ={
-  movies: [],
-  url: '',
-  title: '',
 
-}
+  componentDidMount(){
 
-  render(){
-    let title;
-    let url;
     let {match} = this.props
     if(match.url === '/'){
-      title = "Trending Movies"
-      url = 'https://api.themoviedb.org/3/movie/popular?api_key=c62a78a0d2d87be14d317940c5c290b5&language=en-US&page=1'
+      this.props.getData('/')
     }else if(match.url ==='/HighRating'){
-      title = 'Highest Rated Movies'
-      url = `https://api.themoviedb.org/3/movie/top_rated?api_key=c62a78a0d2d87be14d317940c5c290b5&language=en-US&page=1`
+      this.props.getData('/HighRating')
     }else if(match.url === '/HighGrossing'){
-      title = "Highest Grossing Films"
-      url = 'https://api.themoviedb.org/3/discover/movie?api_key=c62a78a0d2d87be14d317940c5c290b5&language=en-US&sort_by=revenue.desc&include_adult=false&include_video=false&page=1'
+      this.props.getData('/HighGrossing')
     }
-  
+  }
 
-    axios.get(url)
-    .then((res)=>this.setState({movies:res.data.results}))
-    let movies = this.state.movies.map((movie)=> 
+
+  render(){
+    let {match} = this.props
+    let title;
+    if(match.url === '/'){
+      title = "Popular Movies"
+    }else if(match.url === '/HighRating'){
+      title = 'Highest Rated Movies'
+    }else if(match.url === '/HighGrossing'){
+      title = 'Highest Grossing Films of all Time'
+    }
+    let movies = this.props.movies.map((movie)=> 
     <Movie
     title={movie.title} 
     overview={movie.overview}
@@ -43,7 +41,6 @@ state ={
     return(
 
       <Grid centered inverted>
-    
         <Grid.Row>
           <Grid.Column width={5} />
           <Grid.Column width={6} textAlign='center'>

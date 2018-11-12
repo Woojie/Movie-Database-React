@@ -21,7 +21,7 @@ class App extends Component {
       <div className="App">
         <Segment inverted>
           <Menu inverted pointing secondary stackable>
-          <NavLink to='/'><Menu.Item 
+          <NavLink onClick={()=>this.props.getData('/')}  to='/'><Menu.Item 
             as='label'
             name='/' 
             active={activeItem === '/'} 
@@ -31,7 +31,7 @@ class App extends Component {
             Home
           </Menu.Item></NavLink>
 
-          <NavLink to='/HighRating'><Menu.Item 
+          <NavLink to='/HighRating' onClick={()=>this.props.getData('/HighRating')}><Menu.Item 
             as='label'
             name='/HighRating' 
             active={activeItem === '/HighRating'} 
@@ -41,7 +41,7 @@ class App extends Component {
           </Menu.Item>
           </NavLink>
 
-          <NavLink to='/HighGrossing'><Menu.Item 
+          <NavLink to='/HighGrossing' onClick={()=>this.props.getData('/HighGrossing')}><Menu.Item 
             name='/HighGrossing' 
             as='label'
             active={activeItem === '/HighGrossing'} 
