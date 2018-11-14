@@ -6,17 +6,21 @@ import './Navbar.css';
 class App extends Component {
   state={
     activeItem: '',
-    radioCheck: 1
+    radioCheck: 1,
+    search:''
   }
 
   handleItemClick = (e, {name}) =>{this.setState({activeItem: name})}
   handleRadio = (e, {value})=>{this.setState({radioCheck: value})}
+  handleInput = e =>{this.setState({search:e.target.value})}
+
+
   componentDidMount(){
     this.setState({activeItem:window.location.pathname})}
 
   render() {
 
-    const {activeItem, radioCheck} = this.state
+    const {activeItem, radioCheck, search} = this.state
     return (
       <div className="App">
         <Segment inverted>
@@ -89,8 +93,10 @@ class App extends Component {
                   checked={radioCheck==='2'} 
                   onChange={this.handleRadio} />
 
-              <Form.Field control={Input} placeholder='Search..' />
-              <Form.Field><Button basic inverted color='orange'>Search</Button></Form.Field>
+              <Form.Field onChange={this.handleInput} control={Input} value={search} placeholder='Search..' />
+              <Form.Field>
+                <NavLink to={`/${search}`}><Button onClick={() =>this.props.onSearch(search, ()=>{this.setState({search:""})})} basic inverted color='orange'>Search</Button></NavLink>
+              </Form.Field>
               </Form.Group>
             </Form>
           </Menu.Item>

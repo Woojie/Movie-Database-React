@@ -33,12 +33,21 @@ class App extends Component {
     .then((res)=>this.setState({movieDetail:res.data}))
   }
 
+  onSearch = (query, func) =>{
+    this.setState({loader:true})
+    axios.get(`https://api.themoviedb.org/3/search/movie?api_key=c62a78a0d2d87be14d317940c5c290b5&query=${query}`)
+      .then((res)=>{
+        let searchResults = res.data.results.filter((movie)=>{return movie.vote_count > 75})
+        this.setState({movies:searchResults, loader:false},()=> func())
+      })
+  }
+
   render() {
-    const {movies, movieDetail} = this.state
+    const {movies, movieDetail, loader} = this.state
     const {getData, getMovieDetails} = this
     return (
       <div className="App">
-        <Navbar getData={getData} />
+        <Navbar getData={getData} onSearch={this.onSearch} />
 
         <Switch>
           <Route path='/' exact render={(props)=>(<MovieList 
@@ -51,7 +60,8 @@ class App extends Component {
           {...props} getData={getData} 
           movies={movies}
           getMovieDetails={getMovieDetails}
-          loader={this.state.loader} /> )} />
+          loader={loader}
+          onSearch={this.onSearch} /> )} />
 
           <Route path='/movie/:movieId' render={(props)=>(<MoviePage {...props} getMovieDetails={getMovieDetails} movieDetail={movieDetail} />)} />
 
