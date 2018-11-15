@@ -5,15 +5,15 @@ import Movie from './Movie'
 class MovieList extends Component {
 
   componentDidMount(){
-    let {match} = this.props
+    let {match, getData, onSearch} = this.props
     if(match.url === '/'){
-      this.props.getData('/')
+      getData('/')
     }else if(match.url ==='/HighRating'){
-      this.props.getData('/HighRating')
+      getData('/HighRating')
     }else if(match.url === '/HighGrossing'){
-      this.props.getData('/HighGrossing')
+      getData('/HighGrossing')
     }else{
-      this.props.onSearch(`/${match.params.params}`, ()=>{})
+      onSearch(`/${match.params.params}`, ()=>{})
     }
   }
 

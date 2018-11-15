@@ -5,13 +5,15 @@ import './App.css';
 import MovieList from './Components/MovieList/MovieList'
 import MoviePage from './Components/MoviePage/MoviePage'
 import axios from 'axios'
+import TrendyPeople from './Components/TrendyPeople/TrendyPeople'
 
 
 class App extends Component {
   state = {
     movies: [],
     movieDetail: {},
-    loader: true
+    loader: true,
+    people: []
   }
   
   getData = (params) =>{
@@ -42,30 +44,36 @@ class App extends Component {
       })
   }
 
+  getPeopleData = () =>{
+    this.setState({loader: true})
+    axios.get(`https://api.themoviedb.org/3/person/popular?api_key=c62a78a0d2d87be14d317940c5c290b5&language=en-US&page=1`)
+      .then((res)=>{this.setState({people:res.data.results})})
+  }
+
   render() {
-    const {movies, movieDetail, loader} = this.state
-    const {getData, getMovieDetails} = this
+    const {movies, movieDetail, loader, people} = this.state
+    const {getData, getMovieDetails, onSearch, getPeopleData} = this
     return (
       <div className="App">
-        <Navbar getData={getData} onSearch={this.onSearch} />
+        <Navbar getData={getData} onSearch={onSearch} getPeopleData={getPeopleData} />
 
         <Switch>
           <Route path='/' exact render={(props)=>(<MovieList 
           {...props} getData={getData} 
           movies={movies}
           getMovieDetails ={getMovieDetails}
-          loader={this.state.loader} /> )} />
+          loader={loader} /> )} />
 
           <Route path='/:params' exact render={(props)=>(<MovieList 
           {...props} getData={getData} 
           movies={movies}
           getMovieDetails={getMovieDetails}
           loader={loader}
-          onSearch={this.onSearch} /> )} />
+          onSearch={onSearch} /> )} />
 
           <Route path='/movie/:movieId' render={(props)=>(<MoviePage {...props} getMovieDetails={getMovieDetails} movieDetail={movieDetail} />)} />
 
-          <Route path='/TrendyPeople' render={(props)=>(<MovieList {...props} />)} />
+          <Route path='/people/TrendyPeople' render={(props)=>(<TrendyPeople {...props} people={people} />)} />
 
 
         </Switch>

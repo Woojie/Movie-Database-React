@@ -65,7 +65,7 @@ class App extends Component {
           </Menu.Item>
           </NavLink>
 
-          <NavLink to='/TrendyPeople'><Menu.Item 
+          <NavLink onClick={this.props.getPeopleData} to='/people/TrendyPeople'><Menu.Item 
             name='/TrendyPeople' 
             as='label'
             active={activeItem === '/TrendyPeople'} 
