@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Item, Grid, Divider, Header, Segment} from "semantic-ui-react";
 import "./MoviePage.css";
 import DollarSign from '../DollarSign'
+import Production_Comp from '../Production _Comp/Production_Comp'
+import RateAndFav from '../RateAndFav/RateAndFav'
 
 class MoviePage extends Component {
 
@@ -19,6 +21,7 @@ class MoviePage extends Component {
     }
 
     
+
     return(
       <Grid centered inverted>
         <Grid.Row>
@@ -35,12 +38,18 @@ class MoviePage extends Component {
             <Grid.Column width={8} textAlign='center'>
             <Item.Group>
               <Item>
-                <Item.Image id="moviePoster" size='small' src={`http://image.tmdb.org/t/p/w1280/${poster_path}`} />
+                <Item.Image id="moviePoster" src={`http://image.tmdb.org/t/p/w1280/${poster_path}`} />
                 <Segment id='movieContent' raised inverted >
                 <Item.Content>
                   <Item.Description>
-                    <p className='noMargins'><b>Release Date:</b> {release_date}</p>
-                    <DollarSign revenue={revenue} budget ={budget} />
+                    <Segment basic inverted >
+                      <Header textAlign='center' as='h2' content={tagline} inverted />
+                      <p className='noMargins'><b>Release Date:</b> {release_date}</p>
+                      <p className='noMargins'><b>Runtime:</b> {runtime} minutes</p>
+                      <DollarSign revenue={revenue} budget ={budget} />
+                      <RateAndFav rating={vote_average} genres={genres}  />
+                    </Segment>
+
                      <p> {overview}</p>
                   </Item.Description>
                 </Item.Content>

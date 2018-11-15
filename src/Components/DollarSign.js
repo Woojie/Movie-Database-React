@@ -46,10 +46,10 @@ let noMargins = {
 }
 
 return (
-<Segment basic inverted>
+  <div>
   <p style={noMargins}><b>Budget:</b> {budget}</p>
   <p style={noMargins}><b>Revenue:</b> {revenue}</p>
-</Segment>
+  </div>
 )
 }
 

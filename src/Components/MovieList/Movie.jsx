@@ -1,5 +1,5 @@
 import React from "react";
-import { Header, Item} from "semantic-ui-react";
+import {Item} from "semantic-ui-react";
 import "./Movie.css";
 import ReviewLabel from '../ReviewLabel/ReviewLabel'
 import {NavLink} from 'react-router-dom';
