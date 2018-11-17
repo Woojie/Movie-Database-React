@@ -5,11 +5,11 @@ import People from './People'
 class MovieList extends Component {
 
   componentDidMount(){
-    
+      this.props.getPeopleData()
   }
 
   render(){
-    let {match, loader, getMovieDetails} = this.props
+    let {loader} = this.props
 
     let people = this.props.people.map((person)=> 
     <People

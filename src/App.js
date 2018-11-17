@@ -73,7 +73,7 @@ class App extends Component {
 
           <Route path='/movie/:movieId' render={(props)=>(<MoviePage {...props} getMovieDetails={getMovieDetails} movieDetail={movieDetail} />)} />
 
-          <Route path='/people/TrendyPeople' render={(props)=>(<TrendyPeople {...props} people={people} />)} />
+          <Route path='/people/TrendyPeople' render={(props)=>(<TrendyPeople {...props} getPeopleData={this.getPeopleData} people={people} />)} />
 
 
         </Switch>

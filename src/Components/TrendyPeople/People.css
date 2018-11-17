@@ -32,3 +32,11 @@
   color: rgb(206, 204, 204);
 }
 
+#cardSize {
+  width: 120px !important;
+  margin: 2em
+}
+
+#cardImage {
+  margin-right: 0
+}
