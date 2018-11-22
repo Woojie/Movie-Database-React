@@ -1,13 +1,13 @@
 import React from "react";
-import { Item} from "semantic-ui-react";
+import {Item} from "semantic-ui-react";
 import "./Movie.css";
 import ReviewLabel from '../ReviewLabel/ReviewLabel'
 import {NavLink} from 'react-router-dom';
 
-let Movie = ({ title, overview, poster, id, rating, release, getMovieDetails}) => {
+let Movie = ({ title, overview, poster, id, rating, release, getMovieDetails}) => (
 
-  return(<Item id="movieItems" label={{corner:'right', content:"hello"}}>
-  
+
+  <Item id="movieItems" label={{corner:'right', content:"hello"}}>
     <Item.Image
       id="shadows-image"
       src={`http://image.tmdb.org/t/p/w780/${poster}`}
@@ -18,11 +18,15 @@ let Movie = ({ title, overview, poster, id, rating, release, getMovieDetails}) =
 
       <Item.Meta id="itemMeta">
         Release Date: {release}
-      
+ 
       </Item.Meta>
-      <Item.Description id="itemInfo">{overview}</Item.Description>
+      <Item.Description id="itemInfo">
+        
+        {overview}
+      </Item.Description>
     </Item.Content>
   </Item>
+
 )
-}
+
 export default Movie;
