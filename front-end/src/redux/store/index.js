@@ -36,6 +36,13 @@ export const getHighGrossingData = () => {
   .then((res)=>store.dispatch(finishAsyncData(res.data.results)))
 }
 
+export const movieSearch = (query) => {
+  console.log(query)
+  store.dispatch(startAsyncData())
+  axios.get(`https://api.themoviedb.org/3/search/movie?api_key=c62a78a0d2d87be14d317940c5c290b5&query=${query}`)
+  .then((res)=>store.dispatch(finishAsyncData(res.data.results.filter((movie)=>{return movie.vote_count > 75}))))
+}
+
 const initialState = {
   loading: true,
   results: []

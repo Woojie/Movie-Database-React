@@ -3,7 +3,7 @@ import {Menu,Segment, Form, Input, Radio, Button, Icon} from 'semantic-ui-react'
 import {NavLink} from 'react-router-dom';
 import './Navbar.css';
 import {connect} from 'react-redux'
-import {getPopularData, getHighRatedData, getHighGrossingData} from '../../redux/store'
+import {getPopularData, getHighRatedData, getHighGrossingData, movieSearch} from '../../redux/store'
 
 class Navbar extends Component {
   state={
@@ -23,11 +23,12 @@ class Navbar extends Component {
   render() {
 
     const {activeItem, radioCheck, search} = this.state
+    console.log(search)
     return (
       <div className="App">
         <Segment inverted>
           <Menu inverted pointing secondary stackable>
-          <NavLink onClick={()=>this.props.getData('/')}  to='/'><Menu.Item 
+          <NavLink onClick={this.props.getPopularData}  to='/'><Menu.Item 
             as='label'
             name='/' 
             active={activeItem === '/'} 
@@ -37,7 +38,7 @@ class Navbar extends Component {
             Home
           </Menu.Item></NavLink>
 
-          <NavLink to='/HighRating' onClick={()=>this.props.getData('/HighRating')}><Menu.Item 
+          <NavLink to='/HighRating' onClick={this.props.getHighRatedData}><Menu.Item 
             as='label'
             name='/HighRating' 
             active={activeItem === '/HighRating'} 
@@ -47,7 +48,7 @@ class Navbar extends Component {
           </Menu.Item>
           </NavLink>
 
-          <NavLink to='/HighGrossing' onClick={()=>this.props.getData('/HighGrossing')}><Menu.Item 
+          <NavLink to='/HighGrossing' onClick={this.props.getHighGrossingData}><Menu.Item 
             name='/HighGrossing' 
             as='label'
             active={activeItem === '/HighGrossing'} 
@@ -97,7 +98,11 @@ class Navbar extends Component {
 
               <Form.Field onChange={this.handleInput} control={Input} value={search} placeholder='Search..' />
               <Form.Field>
-                <NavLink to={`/${search}`}><Button onClick={() =>this.props.onSearch(search, ()=>{this.setState({search:""})})} basic inverted color='orange'>Search</Button></NavLink>
+                <NavLink to={`/${search}`}><Button onClick={async()=>{
+                  this.props.movieSearch(search)
+                  await this.setState({search:""})
+                }} 
+                  basic inverted color='orange'>Search</Button></NavLink>
               </Form.Field>
               </Form.Group>
             </Form>
@@ -109,4 +114,20 @@ class Navbar extends Component {
   }
 }
 
-export default Navbar;
+
+const reduxProps = state => {
+  return{
+    loading: state.loading,
+    movieResults: state.results
+  }
+}
+const dispatchRedux = dispatch => {
+  return{
+    getPopularData: () => getPopularData(),
+    getHighRatedData: () => getHighRatedData(),
+    getHighGrossingData: () => getHighGrossingData(),
+    movieSearch: (search) => movieSearch(search)
+  }
+}
+
+export default connect(reduxProps, dispatchRedux)(Navbar)

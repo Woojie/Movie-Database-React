@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import {Grid, Header, Divider, Item} from 'semantic-ui-react'
 import Movie from './Movie'
 import {connect} from 'react-redux'
-import {getPopularData, getHighRatedData, getHighGrossingData} from '../../redux/store'
+import {getPopularData, getHighRatedData, getHighGrossingData, movieSearch} from '../../redux/store'
 import Placeholders from './Placeholders'
 
 class MovieList extends Component {
 
   componentDidMount(){
-    let {match, getData, onSearch} = this.props
+    let {match, onSearch} = this.props
     if(match.url === '/'){
       this.props.getPopularData()
     }else if(match.url ==='/HighRating'){
@@ -16,7 +16,7 @@ class MovieList extends Component {
     }else if(match.url === '/HighGrossing'){
       this.props.getHighGrossingData()
     }else{
-      onSearch(`/${match.params.params}`, ()=>{})
+      this.props.movieSearch(`/${match.params.params}`)
     }
   }
 
@@ -32,7 +32,7 @@ class MovieList extends Component {
     }else{
       title = `Search Results for "${match.params.params}"`
     }
-    console.log(this.props.movieResults)
+  
     let movies = this.props.movieResults !== undefined ? (this.props.movieResults.map((movie)=> 
     <Movie
     title={movie.title} 
@@ -94,7 +94,8 @@ const dispatchRedux = dispatch => {
   return{
     getPopularData: () => getPopularData(),
     getHighRatedData: () => getHighRatedData(),
-    getHighGrossingData: () => getHighGrossingData()
+    getHighGrossingData: () => getHighGrossingData(),
+    movieSearch: (params) => movieSearch(params)
   }
 }
 
