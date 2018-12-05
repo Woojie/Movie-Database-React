@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
-import {Grid, Header, Divider, Item, Loader} from 'semantic-ui-react'
+import {Grid, Header, Divider, Item} from 'semantic-ui-react'
 import Movie from './Movie'
+import {connect} from 'react-redux'
+import {getPopularData} from '../../redux/store'
+import Placeholders from './Placeholders'
 
 class MovieList extends Component {
 
   componentDidMount(){
     let {match, getData, onSearch} = this.props
     if(match.url === '/'){
-      getData('/')
+      this.props.getPopularData()
     }else if(match.url ==='/HighRating'){
       getData('/HighRating')
     }else if(match.url === '/HighGrossing'){
@@ -18,7 +21,7 @@ class MovieList extends Component {
   }
 
   render(){
-    let {match, loader, getMovieDetails} = this.props
+    let {match, getMovieDetails} = this.props
     let title
     if(match.url === '/'){
       title = "Popular Movies"
@@ -29,7 +32,8 @@ class MovieList extends Component {
     }else{
       title = `Search Results for "${match.params.params}"`
     }
-    let movies = this.props.movies.map((movie)=> 
+    console.log(this.props.movieResults)
+    let movies = this.props.movieResults !== undefined ? (this.props.movieResults.map((movie)=> 
     <Movie
     title={movie.title} 
     overview={movie.overview}
@@ -39,7 +43,8 @@ class MovieList extends Component {
     poster = {movie.poster_path}
     release = {movie.release_date}
     getMovieDetails = {getMovieDetails}
-    />)
+    />))
+    : []
     let noResults
     if(movies.length < 1){
       noResults = "NO Results matched your search, Please Try again!"
@@ -47,7 +52,8 @@ class MovieList extends Component {
 
     return(
       <div>
-      {loader ? <Loader size='massive'/> :(
+      {this.props.loading ? <Placeholders />    
+ :(
       <Grid centered inverted>
         <Grid.Row>
           <Grid.Column width={5} />
@@ -78,4 +84,16 @@ class MovieList extends Component {
   
 }
 
-export default MovieList
+const reduxProps = state => {
+  return{
+    loading: state.loading,
+    movieResults: state.results
+  }
+}
+const dispatchRedux = dispatch => {
+  return{
+    getPopularData: () => getPopularData()
+  }
+}
+
+export default connect(reduxProps, dispatchRedux)(MovieList)
