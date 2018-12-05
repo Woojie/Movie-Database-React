@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {Grid, Header, Divider, Item} from 'semantic-ui-react'
 import Movie from './Movie'
 import {connect} from 'react-redux'
-import {getPopularData} from '../../redux/store'
+import {getPopularData, getHighRatedData, getHighGrossingData} from '../../redux/store'
 import Placeholders from './Placeholders'
 
 class MovieList extends Component {
@@ -12,9 +12,9 @@ class MovieList extends Component {
     if(match.url === '/'){
       this.props.getPopularData()
     }else if(match.url ==='/HighRating'){
-      getData('/HighRating')
+      this.props.getHighRatedData()
     }else if(match.url === '/HighGrossing'){
-      getData('/HighGrossing')
+      this.props.getHighGrossingData()
     }else{
       onSearch(`/${match.params.params}`, ()=>{})
     }
@@ -92,7 +92,9 @@ const reduxProps = state => {
 }
 const dispatchRedux = dispatch => {
   return{
-    getPopularData: () => getPopularData()
+    getPopularData: () => getPopularData(),
+    getHighRatedData: () => getHighRatedData(),
+    getHighGrossingData: () => getHighGrossingData()
   }
 }
 

@@ -19,7 +19,7 @@ const RateAndFav = ({rating, genres}) => {
     reviewColor = 'red'
   }
 
-  let differentGenres = genres.map((genre)=><List.Item>{genre.name}</List.Item>)
+  let differentGenres = genres.map((genre)=><List.Item key={genre.id}>{genre.name}</List.Item>)
 
   return(
     <List bulleted horizontal>

@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import {Menu,Segment, Form, Input, Radio, Button, Icon} from 'semantic-ui-react'
 import {NavLink} from 'react-router-dom';
 import './Navbar.css';
+import {connect} from 'react-redux'
+import {getPopularData, getHighRatedData, getHighGrossingData} from '../../redux/store'
 
-class App extends Component {
+class Navbar extends Component {
   state={
     activeItem: '',
     radioCheck: 1,
@@ -107,4 +109,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default Navbar;

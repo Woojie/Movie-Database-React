@@ -47,7 +47,7 @@ class MoviePage extends Component {
                       <p className='noMargins'><b>Release Date:</b> {release_date}</p>
                       <p className='noMargins'><b>Runtime:</b> {runtime} minutes</p>
                       <DollarSign revenue={revenue} budget ={budget} />
-                      <RateAndFav rating={vote_average} genres={genres}  />
+                      <RateAndFav rating={vote_average} genres={genres} key={id}  />
                     </Segment>
 
                      <p> {overview}</p>
