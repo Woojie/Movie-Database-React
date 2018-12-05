@@ -1,0 +1,32 @@
+#backdrop {
+  margin-bottom: 1em;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  background-position: 20% 20% !important;
+  z-index: -2;
+  
+}
+
+#backdrop::before{
+  background:radial-gradient(circle at 20% 50%, rgba(11.76%, 15.29%, 17.25%, 0.68) 0%, rgba(11.76%, 15.29%, 17.25%, 0.68) 100%);
+  z-index: -1;
+  width: inherit;
+  height: 100%;
+  position: absolute;
+  content: ""
+}
+
+#moviePoster{
+  margin-top: 1em;
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+
+#movieContent{
+  margin-left: 1em;
+  text-align: left
+}
+
+.noMargins {
+  margin: 0
+}
