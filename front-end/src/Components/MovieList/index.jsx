@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import {Grid, Header, Divider, Item} from 'semantic-ui-react'
-import Movie from './Movie'
+import Movie from './Views/Movie'
 import {connect} from 'react-redux'
 import {getPopularData, getHighRatedData, getHighGrossingData, movieSearch} from '../../redux/store'
-import Placeholders from './Placeholders'
+import Placeholders from './Views/Placeholders'
 
 class MovieList extends Component {
 
   componentDidMount(){
-    let {match, onSearch} = this.props
+    let {match} = this.props
     if(match.url === '/'){
       this.props.getPopularData()
     }else if(match.url ==='/HighRating'){
