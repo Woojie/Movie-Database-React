@@ -4,12 +4,11 @@ import Navbar from './Components/Navbar/Navbar'
 import './App.css';
 import MovieList from './Components/MovieList'
 import MoviePage from './Components/MoviePage/MoviePage'
-import axios from 'axios'
 import TrendyPeople from './Components/TrendyPeople/TrendyPeople'
 
 
 const App = () => (
-      <React.Fragment className="App">
+      <React.Fragment>
         <Navbar />
 
         <Switch>

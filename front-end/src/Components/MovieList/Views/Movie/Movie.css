@@ -3,7 +3,8 @@
   border: #000 1px solid;
   margin-bottom: 3em;
   padding: 0;
-  text-align: left
+  text-align: left;
+  background-color: #212529
 }
 
 #shadows-image {
