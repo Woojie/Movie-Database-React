@@ -8,36 +8,17 @@ import axios from 'axios'
 import TrendyPeople from './Components/TrendyPeople/TrendyPeople'
 
 
-class App extends Component {
-  state = {
-    people: []
-  }
-  
-
-  getPeopleData = () =>{
-    this.setState({loader: true})
-    axios.get(`https://api.themoviedb.org/3/person/popular?api_key=c62a78a0d2d87be14d317940c5c290b5&language=en-US&page=1`)
-      .then((res)=>{this.setState({people:res.data.results})})
-  }
-
-  render() {
-    const {movies, loader, people} = this.state
-    const {getPeopleData} = this
-    return (
-      <div className="App">
-        <Navbar getPeopleData={getPeopleData} />
+const App = () => (
+      <React.Fragment className="App">
+        <Navbar />
 
         <Switch>
           <Route path='/' exact render={(props)=>(<MovieList 
-            {...props}
-            movies={movies}
-            loader={loader} /> 
+            {...props}/> 
           )} />
 
           <Route path='/:params' exact render={(props)=>(<MovieList 
             {...props}  
-            movies={movies}
-            loader={loader}
           /> 
           )} />
 
@@ -46,16 +27,12 @@ class App extends Component {
           />)} />
 
           <Route path='/people/TrendyPeople' render={(props)=>(<TrendyPeople 
-            {...props} 
-            getPeopleData={this.getPeopleData} 
-            people={people} 
+            {...props}
           />)} />
-
-
         </Switch>
-      </div>
-    );
-  }
-}
+      </React.Fragment>
+)
+
+
 
 export default App;
