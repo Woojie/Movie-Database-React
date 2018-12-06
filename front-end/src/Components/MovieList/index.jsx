@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import {Grid, Header, Divider, Item} from 'semantic-ui-react'
 import Movie from './Views/Movie/Movie'
 import {connect} from 'react-redux'
-import {getPopularData, getHighRatedData, getHighGrossingData, movieSearch, movieDetails} from '../../redux/store'
+import {getPopularData, getHighRatedData, getHighGrossingData, movieSearch, movieDetails} from '../../store'
 import Placeholders from './Views/Placeholders'
 
 const MovieList = ({loading, movieResults, movieDetails, match, getPopularData, getHighGrossingData, getHighRatedData, movieSearch}) => {

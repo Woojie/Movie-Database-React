@@ -1,17 +1,18 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import {Grid, Header, Divider, Item, Loader} from 'semantic-ui-react'
 import People from './People'
+import {connect} from 'react-redux'
+import { trendyPeople } from '../../store'
 
-class MovieList extends Component {
+const TrendyPeople = (props) => {
 
-  componentDidMount(){
-      this.props.getPeopleData()
-  }
+  useEffect(()=>{
+    props.trendyPeople()
+  },[])
 
-  render(){
-    let {loader} = this.props
+    let {loader} = props
 
-    let people = this.props.people.map((person)=> 
+    let people = props.people === undefined ? "" : props.people.map((person)=> 
     <People
     name={person.name} 
     overview={person.overview}
@@ -20,10 +21,7 @@ class MovieList extends Component {
     profile = {person.profile_path}
     known_for ={person.known_for}
     />)
-    let noResults
-    if(people.length < 1){
-      noResults = "NO Results matched your search, Please Try again!"
-    }
+
 
     return(
       <div>
@@ -44,7 +42,6 @@ class MovieList extends Component {
           <Divider hidden/>
             <Item.Group relaxed divided>
               {people}
-              <Header as='h3'inverted color='red'>{noResults}</Header>
             </Item.Group>
             <Divider />
           </Grid.Column>
@@ -54,8 +51,19 @@ class MovieList extends Component {
       )}
       </div>
     )
-  }
   
 }
 
-export default MovieList
+const reduxProps = state => {
+  return{
+    loading: state.loading,
+    people: state.people
+  }
+}
+const dispatchRedux = dispatch => {
+  return{
+    trendyPeople: () => trendyPeople()
+  }
+}
+
+export default connect(reduxProps, dispatchRedux)(TrendyPeople)

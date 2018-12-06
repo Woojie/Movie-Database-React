@@ -7,7 +7,7 @@ import {NavLink} from 'react-router-dom';
 let People = ({ name, overview, id, profile, known_for}) => {
 
   let knownFor = known_for.map((movie)=>(
-    <Card onClick={(e, {name})=>console.log(name)} color='orange' raised id='cardSize' name={movie.id}>
+    <Card key={movie.id} color='orange' raised id='cardSize' name={movie.id}>
       <Image  id="cardImage" src={`http://image.tmdb.org/t/p/w780/${movie.poster_path}`} />
     </Card>
   ))

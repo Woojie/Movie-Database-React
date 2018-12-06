@@ -7,6 +7,8 @@ const StartAsyncData = 'START_ASYNC_DATA'
 const FinishAsyncData = 'FINISH_ASYNC_DATA'
 const StartAsyncMovieDetails = 'START_ASYNC_MOVIE_DETAILS'
 const FinishAsyncMovieDetails = 'FINISH_ASYNC_MOVIE_DETAILS'
+const StartAsyncPeopleDetails = 'START_ASYNC_PEOPLE_DETAILS'
+const FinishAsyncPeopleDetails = 'FINISH_ASYNC_PEOPLE_DETAILS'
 
 export const startAsyncData = () => ({
   type: StartAsyncData
@@ -25,6 +27,17 @@ export const startAsyncMovieDetails = () => ({
 
 export const finishAsyncMovieDetails = results => ({
   type: FinishAsyncMovieDetails,
+  payload: {
+    results
+  }
+})
+
+export const startAsyncPeopleDetails = () => ({
+  type: StartAsyncPeopleDetails
+})
+
+export const finishAsyncPeopleDetails = results => ({
+  type: FinishAsyncPeopleDetails,
   payload: {
     results
   }
@@ -61,10 +74,19 @@ export const movieDetails = (id) => {
   .then((res)=>store.dispatch(finishAsyncMovieDetails(res.data)))
 }
 
+export const trendyPeople = () => {
+  store.dispatch(startAsyncPeopleDetails())
+  axios.get(`https://api.themoviedb.org/3/person/popular?api_key=c62a78a0d2d87be14d317940c5c290b5&language=en-US&page=1`)
+  .then((res)=>store.dispatch(finishAsyncPeopleDetails(res.data.results)))
+}
+
+
+
 const initialState = {
   loading: true,
   results: [],
-  movieDetail: []
+  movieDetail: [],
+  people: []
 }
 
 const getDataReducer = (state=initialState, action)=>{
@@ -89,6 +111,17 @@ const getDataReducer = (state=initialState, action)=>{
      ...state,
      loading: false,
      movieDetail: action.payload.results
+   }
+ }else if(action.type === StartAsyncPeopleDetails){
+   return{
+     ...state,
+     loading: true
+   }
+ }else if(action.type === FinishAsyncPeopleDetails){
+   return{
+     ...state,
+     loading: false,
+     people: action.payload.results
    }
  }
  return{state}

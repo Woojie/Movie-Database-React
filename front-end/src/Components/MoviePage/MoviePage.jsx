@@ -5,7 +5,7 @@ import DollarSign from '../DollarSign'
 import Production_Comp from '../Production _Comp/Production_Comp'
 import RateAndFav from '../RateAndFav/RateAndFav'
 import {connect} from 'react-redux'
-import { movieDetails} from '../../redux/store'
+import { movieDetails} from '../../store'
 
 const MoviePage = (props) => {
 

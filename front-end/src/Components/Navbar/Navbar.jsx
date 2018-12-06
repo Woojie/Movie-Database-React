@@ -3,9 +3,9 @@ import {Menu,Segment, Form, Input, Radio, Button, Icon} from 'semantic-ui-react'
 import {NavLink} from 'react-router-dom';
 import './Navbar.css';
 import {connect} from 'react-redux'
-import {getPopularData, getHighRatedData, getHighGrossingData, movieSearch} from '../../redux/store'
+import {getPopularData, getHighRatedData, getHighGrossingData, movieSearch, trendyPeople} from '../../store'
 
-const Navbar = ({getPeopleData, getPopularData, getHighGrossingData, getHighRatedData, movieSearch}) => {
+const Navbar = ({getPeopleData, trendyPeople, getPopularData, getHighGrossingData, getHighRatedData, movieSearch}) => {
 
   const [radioCheck, handleRadio] = useState("1")
   const [activeItem, handleItemClick] = useState(window.location.pathname)
@@ -55,7 +55,7 @@ const Navbar = ({getPeopleData, getPopularData, getHighGrossingData, getHighRate
           </Menu.Item>
           </NavLink>
 
-          <NavLink onClick={getPeopleData} to='/people/TrendyPeople'><Menu.Item 
+          <NavLink onClick={trendyPeople} to='/people/TrendyPeople'><Menu.Item 
             name='/TrendyPeople' 
             as='label'
             active={activeItem === '/TrendyPeople'} 
@@ -105,7 +105,8 @@ const Navbar = ({getPeopleData, getPopularData, getHighGrossingData, getHighRate
 const reduxProps = state => {
   return{
     loading: state.loading,
-    movieResults: state.results
+    movieResults: state.results,
+    people: state.people
   }
 }
 const dispatchRedux = dispatch => {
@@ -113,7 +114,8 @@ const dispatchRedux = dispatch => {
     getPopularData: () => getPopularData(),
     getHighRatedData: () => getHighRatedData(),
     getHighGrossingData: () => getHighGrossingData(),
-    movieSearch: (search) => movieSearch(search)
+    movieSearch: (search) => movieSearch(search),
+    trendyPeople: () => trendyPeople()
   }
 }
 
