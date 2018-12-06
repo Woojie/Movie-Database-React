@@ -4,7 +4,7 @@ import "./Movie.css";
 import ReviewLabel from '../ReviewLabel'
 import {NavLink} from 'react-router-dom';
 
-let Movie = ({ title, overview, poster, id, rating, release, getMovieDetails}) => (
+let Movie = ({ title, overview, poster, id, rating, release, movieDetails}) => (
 
 
   <Item id="movieItems" label={{corner:'right', content:"hello"}}>
@@ -14,7 +14,7 @@ let Movie = ({ title, overview, poster, id, rating, release, getMovieDetails}) =
     />
     <Item.Content>
       <ReviewLabel rating={rating} />
-      <NavLink to={`/movie/${id}`} onClick={() => getMovieDetails(id)}><Item.Header id="itemHeader" as="h2" content={title} /></NavLink>
+      <NavLink to={`/movie/${id}`} onClick={() => movieDetails(id)}><Item.Header id="itemHeader" as="h2" content={title} /></NavLink>
 
       <Item.Meta id="itemMeta">
         Release Date: {release}

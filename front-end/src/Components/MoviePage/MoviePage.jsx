@@ -4,25 +4,26 @@ import "./MoviePage.css";
 import DollarSign from '../DollarSign'
 import Production_Comp from '../Production _Comp/Production_Comp'
 import RateAndFav from '../RateAndFav/RateAndFav'
+import {connect} from 'react-redux'
+import { movieDetails} from '../../redux/store'
 
 class MoviePage extends Component {
 
   componentDidMount(){
     let id = this.props.match.params.movieId
-    this.props.getMovieDetails(id)
+    this.props.movieDetails(id)
   }
   render(){
-    let {title, backdrop_path, poster_path, genres, id, production_companies, release_date, revenue, runtime, vote_average, tagline, budget, overview } = this.props.movieDetail
+    let {title, backdrop_path, poster_path, genres, id, production_companies, release_date, revenue, runtime, vote_average, tagline, budget, overview } = this.props.details === undefined ? "" : this.props.details
 
 
     let backdropImage = {
       backgroundImage:`url(http://image.tmdb.org/t/p/w1280/${backdrop_path})`,
       paddingTop: '0'
     }
-
     
-
     return(
+
       <Grid centered inverted>
         <Grid.Row>
           <Grid.Column width={5} />
@@ -67,4 +68,16 @@ class MoviePage extends Component {
   }
 }
 
-export default MoviePage
+const reduxProps = state => {
+  return{
+    loading: state.loading,
+    details: state.movieDetail
+  }
+}
+const dispatchRedux = dispatch => {
+  return{
+    movieDetails: (id) => movieDetails(id)
+  }
+}
+
+export default connect(reduxProps, dispatchRedux)(MoviePage)

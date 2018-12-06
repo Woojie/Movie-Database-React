@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 import {Grid, Header, Divider, Item} from 'semantic-ui-react'
 import Movie from './Views/Movie/Movie'
 import {connect} from 'react-redux'
-import {getPopularData, getHighRatedData, getHighGrossingData, movieSearch} from '../../redux/store'
+import {getPopularData, getHighRatedData, getHighGrossingData, movieSearch, movieDetails} from '../../redux/store'
 import Placeholders from './Views/Placeholders'
 
-const MovieList = ({loading, movieResults, getMovieDetails, match, getPopularData, getHighGrossingData, getHighRatedData, movieSearch}) => {
+const MovieList = ({loading, movieResults, movieDetails, match, getPopularData, getHighGrossingData, getHighRatedData, movieSearch}) => {
 
 
   useEffect(()=>{
@@ -30,7 +30,7 @@ const MovieList = ({loading, movieResults, getMovieDetails, match, getPopularDat
     }else{
       title = `Search Results for "${match.params.params}"`
     }
-  
+    console.log(movieResults)
     let movies = movieResults !== undefined ? (movieResults.map((movie)=> 
     <Movie
     title={movie.title} 
@@ -40,7 +40,7 @@ const MovieList = ({loading, movieResults, getMovieDetails, match, getPopularDat
     rating = {movie.vote_average}
     poster = {movie.poster_path}
     release = {movie.release_date}
-    getMovieDetails = {getMovieDetails}
+    movieDetails = {movieDetails}
     />))
     : []
 
@@ -89,7 +89,8 @@ const dispatchRedux = dispatch => {
     getPopularData: () => getPopularData(),
     getHighRatedData: () => getHighRatedData(),
     getHighGrossingData: () => getHighGrossingData(),
-    movieSearch: (params) => movieSearch(params)
+    movieSearch: (params) => movieSearch(params),
+    movieDetails: (id) => movieDetails(id)
   }
 }
 
