@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useEffect } from 'react'
 import { Item, Grid, Divider, Header, Segment} from "semantic-ui-react";
 import "./MoviePage.css";
 import DollarSign from '../DollarSign'
@@ -7,14 +7,16 @@ import RateAndFav from '../RateAndFav/RateAndFav'
 import {connect} from 'react-redux'
 import { movieDetails} from '../../redux/store'
 
-class MoviePage extends Component {
+const MoviePage = (props) => {
 
-  componentDidMount(){
-    let id = this.props.match.params.movieId
-    this.props.movieDetails(id)
-  }
-  render(){
-    let {title, backdrop_path, poster_path, genres, id, production_companies, release_date, revenue, runtime, vote_average, tagline, budget, overview } = this.props.details === undefined ? "" : this.props.details
+
+  useEffect(()=>{
+    let id = props.match.params.movieId
+    props.movieDetails(id)
+  },[])
+
+  
+    let {title, backdrop_path, poster_path, genres, id, production_companies, release_date, revenue, runtime, vote_average, tagline, budget, overview } = props.details === undefined ? "" : props.details
 
 
     let backdropImage = {
@@ -65,7 +67,7 @@ class MoviePage extends Component {
 
         </Grid>
     )
-  }
+  
 }
 
 const reduxProps = state => {

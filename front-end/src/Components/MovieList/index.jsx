@@ -30,7 +30,6 @@ const MovieList = ({loading, movieResults, movieDetails, match, getPopularData, 
     }else{
       title = `Search Results for "${match.params.params}"`
     }
-    console.log(movieResults)
     let movies = movieResults !== undefined ? (movieResults.map((movie)=> 
     <Movie
     title={movie.title} 
