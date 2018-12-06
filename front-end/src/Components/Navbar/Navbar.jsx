@@ -5,7 +5,7 @@ import './Navbar.css';
 import {connect} from 'react-redux'
 import {getPopularData, getHighRatedData, getHighGrossingData, movieSearch} from '../../redux/store'
 
-const Navbar = (props) => {
+const Navbar = ({getPeopleData, getPopularData, getHighGrossingData, getHighRatedData, movieSearch}) => {
 
   const [radioCheck, handleRadio] = useState("1")
   const [activeItem, handleItemClick] = useState(window.location.pathname)
@@ -15,7 +15,7 @@ const Navbar = (props) => {
       <div className="App">
         <Segment inverted>
           <Menu inverted pointing secondary stackable>
-          <NavLink onClick={props.getPopularData}  to='/'><Menu.Item 
+          <NavLink onClick={getPopularData}  to='/'><Menu.Item 
             as='label'
             name='/' 
             active={activeItem === '/'} 
@@ -25,7 +25,7 @@ const Navbar = (props) => {
             Home
           </Menu.Item></NavLink>
 
-          <NavLink to='/HighRating' onClick={props.getHighRatedData}><Menu.Item 
+          <NavLink to='/HighRating' onClick={getHighRatedData}><Menu.Item 
             as='label'
             name='/HighRating' 
             active={activeItem === '/HighRating'} 
@@ -35,7 +35,7 @@ const Navbar = (props) => {
           </Menu.Item>
           </NavLink>
 
-          <NavLink to='/HighGrossing' onClick={props.getHighGrossingData}><Menu.Item 
+          <NavLink to='/HighGrossing' onClick={getHighGrossingData}><Menu.Item 
             name='/HighGrossing' 
             as='label'
             active={activeItem === '/HighGrossing'} 
@@ -55,7 +55,7 @@ const Navbar = (props) => {
           </Menu.Item>
           </NavLink>
 
-          <NavLink onClick={props.getPeopleData} to='/people/TrendyPeople'><Menu.Item 
+          <NavLink onClick={getPeopleData} to='/people/TrendyPeople'><Menu.Item 
             name='/TrendyPeople' 
             as='label'
             active={activeItem === '/TrendyPeople'} 
@@ -86,7 +86,7 @@ const Navbar = (props) => {
               <Form.Field onChange={(e)=>handleInput(e.target.value)} control={Input} value={search} placeholder='Search..' />
               <Form.Field>
                 <NavLink to={`/${search}`}><Button onClick={async()=>{
-                  props.movieSearch(search)
+                  movieSearch(search)
                   await handleInput("")
                 }} 
                   basic inverted color='orange'>Search</Button></NavLink>

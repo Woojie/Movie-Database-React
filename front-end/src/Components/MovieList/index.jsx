@@ -1,27 +1,25 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import {Grid, Header, Divider, Item} from 'semantic-ui-react'
-import Movie from './Views/Movie'
+import Movie from './Views/Movie/Movie'
 import {connect} from 'react-redux'
 import {getPopularData, getHighRatedData, getHighGrossingData, movieSearch} from '../../redux/store'
 import Placeholders from './Views/Placeholders'
 
-class MovieList extends Component {
+const MovieList = ({loading, movieResults, getMovieDetails, match, getPopularData, getHighGrossingData, getHighRatedData, movieSearch}) => {
 
-  componentDidMount(){
-    let {match} = this.props
+
+  useEffect(()=>{
     if(match.url === '/'){
-      this.props.getPopularData()
+      getPopularData()
     }else if(match.url ==='/HighRating'){
-      this.props.getHighRatedData()
+      getHighRatedData()
     }else if(match.url === '/HighGrossing'){
-      this.props.getHighGrossingData()
+      getHighGrossingData()
     }else{
-      this.props.movieSearch(`/${match.params.params}`)
+      movieSearch(`/${match.params.params}`)
     }
-  }
+  }, [])
 
-  render(){
-    let {match, getMovieDetails} = this.props
     let title
     if(match.url === '/'){
       title = "Popular Movies"
@@ -33,7 +31,7 @@ class MovieList extends Component {
       title = `Search Results for "${match.params.params}"`
     }
   
-    let movies = this.props.movieResults !== undefined ? (this.props.movieResults.map((movie)=> 
+    let movies = movieResults !== undefined ? (movieResults.map((movie)=> 
     <Movie
     title={movie.title} 
     overview={movie.overview}
@@ -45,15 +43,11 @@ class MovieList extends Component {
     getMovieDetails = {getMovieDetails}
     />))
     : []
-    let noResults
-    if(movies.length < 1){
-      noResults = "NO Results matched your search, Please Try again!"
-    }
 
-    return(
-      <div>
-      {this.props.loading ? <Placeholders />    
- :(
+  return(
+      <React.Fragment>
+      {loading ? <Placeholders />    
+      :(
       <Grid centered inverted>
         <Grid.Row>
           <Grid.Column width={5} />
@@ -70,7 +64,7 @@ class MovieList extends Component {
           <Divider hidden/>
             <Item.Group relaxed divided>
               {movies}
-              <Header as='h3'inverted color='red'>{noResults}</Header>
+          
             </Item.Group>
             <Divider />
           </Grid.Column>
@@ -78,11 +72,11 @@ class MovieList extends Component {
         </Grid.Row>
       </Grid>
       )}
-      </div>
-    )
-  }
-  
+      </React.Fragment>
+  )
 }
+  
+
 
 const reduxProps = state => {
   return{

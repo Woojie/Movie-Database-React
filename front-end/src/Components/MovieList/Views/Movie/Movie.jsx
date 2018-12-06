@@ -1,7 +1,7 @@
 import React from "react";
 import {Item} from "semantic-ui-react";
 import "./Movie.css";
-import ReviewLabel from '../../ReviewLabel/ReviewLabel'
+import ReviewLabel from '../ReviewLabel'
 import {NavLink} from 'react-router-dom';
 
 let Movie = ({ title, overview, poster, id, rating, release, getMovieDetails}) => (
