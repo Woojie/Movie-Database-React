@@ -40,7 +40,7 @@ const MoviePage = (props) => {
                 <Item.Content>
                   <Item.Description>
                     <Segment basic inverted >
-                      <Header textAlign='center' as='h2' content={tagline} inverted />
+                      <Header textAlign='center' as='h4' content={tagline} inverted />
                       <p className='noMargins'><b>Release Date:</b> {release_date}</p>
                       <p className='noMargins'><b>Runtime:</b> {runtime} minutes</p>
                       <DollarSign revenue={revenue} budget ={budget} />
@@ -55,6 +55,9 @@ const MoviePage = (props) => {
               <Divider hidden/>
             </Grid.Column>
             <Grid.Column width={4} />
+            </Grid.Row>
+            <Grid.Row>
+              
             </Grid.Row>
         </Grid>
     ) 

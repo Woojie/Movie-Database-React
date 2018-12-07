@@ -15,15 +15,17 @@ const Navbar = ({trendyPeople, getPopularData, getHighGrossingData, getHighRated
       <div className="App">
         <Segment inverted>
           <Menu inverted pointing secondary stackable>
-          <NavLink onClick={getPopularData}  to='/'><Menu.Item 
-            as='label'
-            name='/' 
-            active={activeItem === '/'} 
-            onClick={()=>handleItemClick('/')} 
-          >
+          <NavLink onClick={getPopularData}  to='/'>
+            <Menu.Item 
+              as='label'
+              name='/' 
+              active={activeItem === '/'} 
+              onClick={()=>handleItemClick('/')} 
+            >
             <Icon inverted color="orange" name='home' fitted />
             Home
-          </Menu.Item></NavLink>
+            </Menu.Item>
+          </NavLink>
 
           <NavLink to='/HighRating' onClick={getHighRatedData}><Menu.Item 
             as='label'

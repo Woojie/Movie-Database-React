@@ -8,7 +8,6 @@ import {NavLink} from 'react-router-dom';
 let People = ({ name, overview, id, profile, known_for, history}) => {
 
   let knownFor = known_for.map((movie)=>(
-
   <Card link 
     key={movie.id} 
     color='orange' 
