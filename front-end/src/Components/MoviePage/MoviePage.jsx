@@ -8,24 +8,18 @@ import {connect} from 'react-redux'
 import { movieDetails} from '../../store'
 
 const MoviePage = (props) => {
-
-
   useEffect(()=>{
     let id = props.match.params.movieId
     props.movieDetails(id)
   },[])
-
   
     let {title, backdrop_path, poster_path, genres, id, production_companies, release_date, revenue, runtime, vote_average, tagline, budget, overview } = props.details === undefined ? "" : props.details
-
-
     let backdropImage = {
       backgroundImage:`url(http://image.tmdb.org/t/p/w1280/${backdrop_path})`,
       paddingTop: '0'
     }
     
     return(
-
       <Grid centered inverted>
         <Grid.Row>
           <Grid.Column width={5} />
@@ -52,7 +46,6 @@ const MoviePage = (props) => {
                       <DollarSign revenue={revenue} budget ={budget} />
                       <RateAndFav rating={vote_average} genres={genres} />
                     </Segment>
-
                      <p> {overview}</p>
                   </Item.Description>
                 </Item.Content>
@@ -62,12 +55,9 @@ const MoviePage = (props) => {
               <Divider hidden/>
             </Grid.Column>
             <Grid.Column width={4} />
-
             </Grid.Row>
-
         </Grid>
-    )
-  
+    ) 
 }
 
 const reduxProps = state => {

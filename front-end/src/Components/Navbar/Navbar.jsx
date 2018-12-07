@@ -5,7 +5,7 @@ import './Navbar.css';
 import {connect} from 'react-redux'
 import {getPopularData, getHighRatedData, getHighGrossingData, movieSearch, trendyPeople} from '../../store'
 
-const Navbar = ({getPeopleData, trendyPeople, getPopularData, getHighGrossingData, getHighRatedData, movieSearch}) => {
+const Navbar = ({trendyPeople, getPopularData, getHighGrossingData, getHighRatedData, movieSearch}) => {
 
   const [radioCheck, handleRadio] = useState("1")
   const [activeItem, handleItemClick] = useState(window.location.pathname)

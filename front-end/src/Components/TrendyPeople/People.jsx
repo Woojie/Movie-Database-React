@@ -1,15 +1,25 @@
 import React from "react";
 import {Item, Card, Image} from "semantic-ui-react";
 import "./People.css";
+import {Link} from "react-router-dom"
 
 import {NavLink} from 'react-router-dom';
 
-let People = ({ name, overview, id, profile, known_for}) => {
+let People = ({ name, overview, id, profile, known_for, history}) => {
 
   let knownFor = known_for.map((movie)=>(
-    <Card key={movie.id} color='orange' raised id='cardSize' name={movie.id}>
-      <Image  id="cardImage" src={`http://image.tmdb.org/t/p/w780/${movie.poster_path}`} />
-    </Card>
+
+  <Card link 
+    key={movie.id} 
+    color='orange' 
+    raised name={movie.id}
+  >
+    <Link to={`/movie/${movie.id}`}>
+      <Image  id="cardImage" 
+        src={`http://image.tmdb.org/t/p/w780/${movie.poster_path}`} 
+      />
+    </Link>
+  </Card>
   ))
 
   return(
@@ -24,7 +34,7 @@ let People = ({ name, overview, id, profile, known_for}) => {
       <Item.Meta id="itemMeta">
       </Item.Meta>
       <Item.Description id="itemInfo">
-          <Card.Group doubling>
+          <Card.Group stackable itemsPerRow={3} id="cardSize">
             {knownFor}
           </Card.Group>
       </Item.Description>
