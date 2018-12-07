@@ -30,3 +30,7 @@
 .noMargins {
   margin: 0
 }
+
+#productionComp {
+  margin-left: 1em
+}

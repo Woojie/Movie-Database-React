@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
-import { Item, Grid, Divider, Header, Segment, Dimmer, Loader} from "semantic-ui-react";
+import { Item, Grid, Divider, Header, Segment, Dimmer, Loader, List} from "semantic-ui-react";
 import "./MoviePage.css";
 import DollarSign from '../DollarSign'
-import ProductionComp from '../Production _Comp/Production_Comp'
+import ProductionComp from '../Production_Comp/Production_Comp'
 import RateAndFav from '../RateAndFav/RateAndFav'
 import {connect} from 'react-redux'
 import { movieDetails} from '../../store'
@@ -18,8 +18,15 @@ const MoviePage = (props) => {
       backgroundImage:`url(http://image.tmdb.org/t/p/w1280/${backdrop_path})`,
       paddingTop: '0'
     }
+    let companies = production_companies === undefined ? "" : production_companies.map((company)=>
+      <ProductionComp 
+        key={company.id} 
+        id={company.id} 
+        logo={company.logo_path} 
+        name={company.name} />)
     
     return(
+      <React.Fragment>
       <Grid centered inverted>
         <Grid.Row>
           <Grid.Column width={5} />
@@ -30,6 +37,8 @@ const MoviePage = (props) => {
             </Grid.Column>
           <Grid.Column width={5} />
           </Grid.Row>
+          {props.details === undefined ? <Dimmer active><Loader size="massive" /></Dimmer>
+          :(
           <Grid.Row  id='backdrop' style={backdropImage}>
             <Grid.Column width={4} />
             <Grid.Column width={8} textAlign='center'>
@@ -56,14 +65,23 @@ const MoviePage = (props) => {
             </Grid.Column>
             <Grid.Column width={4} />
             </Grid.Row>
+            )}
             <Grid.Row>
-              <Grid.Column width={5} />
-                  <ProductionComp companies={production_companies} />
+              
+              <Grid.Column width={5}>
+                  <List id="productionComp" floated="left" >
+                  <Segment inverted>
+                    <Header as="h5" content="Production Companies" />
+                    {companies}
+                    </Segment>
+                  </List>
+              </Grid.Column>
               <Grid.Column width={6}>
               </Grid.Column>
               <Grid.Column width={5} />
             </Grid.Row>
         </Grid>
+        </React.Fragment>
     ) 
 }
 
