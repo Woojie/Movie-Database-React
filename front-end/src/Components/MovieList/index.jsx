@@ -52,7 +52,7 @@ const MovieList = ({loading, movieResults, movieDetails, match, getPopularData, 
           <Grid.Column width={5} />
           <Grid.Column width={6} textAlign='center'>
           <Divider hidden/>
-            <Header inverted as='h1' content={title} />
+            <Header as='h1' content={title} />
             <Divider />
           </Grid.Column>
           <Grid.Column width={5} />

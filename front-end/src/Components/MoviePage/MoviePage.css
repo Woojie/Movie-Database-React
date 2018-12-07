@@ -4,6 +4,7 @@
   background-size: cover !important;
   background-position: 20% 20% !important;
   z-index: -2;
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important
   
 }
 
@@ -18,7 +19,6 @@
 
 #moviePoster{
   margin-top: 1em;
-  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
 }
 

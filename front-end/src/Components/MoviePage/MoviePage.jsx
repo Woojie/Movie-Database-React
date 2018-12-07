@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
-import { Item, Grid, Divider, Header, Segment} from "semantic-ui-react";
+import { Item, Grid, Divider, Header, Segment, Dimmer, Loader} from "semantic-ui-react";
 import "./MoviePage.css";
 import DollarSign from '../DollarSign'
-import Production_Comp from '../Production _Comp/Production_Comp'
+import ProductionComp from '../Production _Comp/Production_Comp'
 import RateAndFav from '../RateAndFav/RateAndFav'
 import {connect} from 'react-redux'
 import { movieDetails} from '../../store'
@@ -25,7 +25,7 @@ const MoviePage = (props) => {
           <Grid.Column width={5} />
           <Grid.Column width={6} textAlign='center'>
             <Divider hidden/>
-            <Header inverted as='h1' content={title} />
+            <Header  as='h1' content={title} />
             <Divider />
             </Grid.Column>
           <Grid.Column width={5} />
@@ -57,7 +57,11 @@ const MoviePage = (props) => {
             <Grid.Column width={4} />
             </Grid.Row>
             <Grid.Row>
-              
+              <Grid.Column width={5} />
+                  <ProductionComp companies={production_companies} />
+              <Grid.Column width={6}>
+              </Grid.Column>
+              <Grid.Column width={5} />
             </Grid.Row>
         </Grid>
     ) 

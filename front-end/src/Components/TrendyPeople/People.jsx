@@ -11,7 +11,7 @@ let People = ({ name, overview, id, profile, known_for, history}) => {
   <Card link 
     key={movie.id} 
     color='orange' 
-    raised name={movie.id}
+    raised
   >
     <Link to={`/movie/${movie.id}`}>
       <Image  id="cardImage" 
