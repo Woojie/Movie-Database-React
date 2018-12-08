@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { Item, Grid, Divider, Header, Segment, Dimmer, Loader, List} from "semantic-ui-react";
 import "./MoviePage.css";
 import DollarSign from '../DollarSign'
-import ProductionComp from '../Production_Comp/Production_Comp'
+import ProductionComp from './Production_Comp/Production_Comp'
 import RateAndFav from '../RateAndFav/RateAndFav'
 import {connect} from 'react-redux'
 import { movieDetails} from '../../store'
@@ -68,17 +68,14 @@ const MoviePage = (props) => {
             )}
             <Grid.Row>
               
-              <Grid.Column width={5}>
-                  <List id="productionComp" floated="left" >
-                  <Segment inverted>
-                    <Header as="h5" content="Production Companies" />
+              <Grid.Column width={6}>
+                  <List id="productionComp" animated floated="left" >
+                    <Header as="h3" content="Production Companies" />
                     {companies}
-                    </Segment>
                   </List>
               </Grid.Column>
-              <Grid.Column width={6}>
+              <Grid.Column width={10}>
               </Grid.Column>
-              <Grid.Column width={5} />
             </Grid.Row>
         </Grid>
         </React.Fragment>
