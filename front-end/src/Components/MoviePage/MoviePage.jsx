@@ -1,14 +1,13 @@
 import React, { useEffect } from 'react'
-import { Item, Grid, Divider, Header, Segment, Dimmer, Loader, List} from "semantic-ui-react";
+import { Item, Grid, Divider, Header, Segment, Dimmer, Loader} from "semantic-ui-react";
 import "./MoviePage.css";
 import DollarSign from '../DollarSign'
-import ProductionComp from './Production_Comp/Production_Comp'
-import GoogleNews from './GoogleNews'
+
 import RateAndFav from './RateAndFav/RateAndFav'
 import {connect} from 'react-redux'
 import { movieDetails} from '../../store'
-import ShortCast from './ShortCast/ShortCast'
-import ShortCrew from './ShortCrew/ShortCrew'
+
+import LeftSideList from './LeftSideList'
 
 
 const MoviePage = ({details, scrapedData, match, movieDetails, cast, crew}) => {
@@ -22,60 +21,9 @@ const MoviePage = ({details, scrapedData, match, movieDetails, cast, crew}) => {
       backgroundImage:`url(http://image.tmdb.org/t/p/w1280/${backdrop_path})`,
       paddingTop: '0'
     }
-    let companies = production_companies === undefined ? "" : production_companies.map((company)=>
-      <ProductionComp 
-        key={company.id} 
-        id={company.id} 
-        logo={company.logo_path} 
-        name={company.name} />)
-    
-    let googleNews = scrapedData === undefined ? "" : scrapedData.map((news,i)=>
-      <GoogleNews
-        key={i}
-        text={news.text}
-        url={news.url}
-        description={news.description}
-        source={news.source}
-        date={news.date}
-        img={news.img}
-      />
-    )
 
-    let newCast = cast === undefined ? "" : [
-      cast.length <= 5 ? cast 
-      : cast.slice(0, 5)
-    ]
-    let shortCast = cast === undefined ? "" : newCast[0].map((member)=>
-      <ShortCast 
-        key={member.id}
-        character={member.character}
-        creditId={member.credit_id}
-        id={member.id}
-        gender={member.gender}
-        name={member.name}
-        profile={member.profile_path}
-      />
-    )
-
-    let newCrew = crew === undefined ? "" : [
-      crew.length <= 5 ? crew 
-      : crew.slice(0, 5)
-    ]
-    let shortCrew = crew === undefined ? "" : newCrew[0].map((member)=>
-      <ShortCast 
-        key={member.id}
-        character={member.character}
-        creditId={member.credit_id}
-        id={member.id}
-        gender={member.gender}
-        name={member.name}
-        profile={member.profile_path}
-      />
-    )
-  
 
     return(
-      <React.Fragment>
       <Grid centered inverted stackable>
         <Grid.Row>
           <Grid.Column width={5} />
@@ -115,29 +63,9 @@ const MoviePage = ({details, scrapedData, match, movieDetails, cast, crew}) => {
             <Grid.Column width={4} />
             </Grid.Row>
             )}
-            <Grid.Row>
-              
-              <Grid.Column width={3}>
-                  <List id="productionComp" animated >
-                    <Header as="h3" content="Production Companies" />
-                    {companies}
-                  </List>
-                  <List divided id="productionComp" animated floated="left" >
-                    <Header as="h3" content="Cast Members" />
-                    {shortCast}
-                    <Header as="a" href="https://developers.themoviedb.org/3/movies/get-movie-keywords" content="Click for Full Cast" />
-                  </List>
-              </Grid.Column>
-              <Grid.Column width={9}>
-                <List divided relaxed id="productionComp" animated floated="left" >
-                  <Header as="h3" content="News" />
-                  {googleNews}
-                </List>
-              </Grid.Column>
-              <Grid.Column width={4} />
-            </Grid.Row>
+          <LeftSideList cast={cast} crew={crew} scrapedData={scrapedData} production_companies={production_companies} />
         </Grid>
-        </React.Fragment>
+
     ) 
 }
 
