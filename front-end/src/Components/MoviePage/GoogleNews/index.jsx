@@ -3,6 +3,7 @@ import {List, Image} from 'semantic-ui-react'
 
 const GoogleNews = ({text, url, description, source, date, img}) => (
 
+  
   <List.Item>
     <Image src={img} />
     <List.Content>

@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react'
-import { Item, Grid, Divider, Header, Segment, Dimmer, Loader} from "semantic-ui-react";
+import { Item, Grid, Divider, Header, Segment, Dimmer, Loader, List} from "semantic-ui-react";
 import "./MoviePage.css";
 import DollarSign from '../DollarSign'
 
 import RateAndFav from './RateAndFav/RateAndFav'
 import {connect} from 'react-redux'
 import { movieDetails} from '../../store'
-
+import GoogleNews from './GoogleNews'
 import LeftSideList from './LeftSideList'
 
 
@@ -22,9 +22,24 @@ const MoviePage = ({details, scrapedData, match, movieDetails, cast, crew}) => {
       paddingTop: '0'
     }
 
+    let googleNews = scrapedData === undefined ? "" : scrapedData.map((news,i)=>
+  <GoogleNews
+    key={i}
+    text={news.text}
+    url={news.url}
+    description={news.description}
+    source={news.source}
+    date={news.date}
+    img={news.img}
+  />
+)
+
 
     return(
       <Grid centered inverted stackable>
+        {details === undefined ? <Dimmer active><Loader size="massive" /></Dimmer>
+        :(
+        <React.Fragment>
         <Grid.Row>
           <Grid.Column width={5} />
           <Grid.Column width={6} textAlign='center'>
@@ -34,8 +49,6 @@ const MoviePage = ({details, scrapedData, match, movieDetails, cast, crew}) => {
             </Grid.Column>
           <Grid.Column width={5} />
           </Grid.Row>
-          {details === undefined ? <Dimmer active><Loader size="massive" /></Dimmer>
-          :(
           <Grid.Row  id='backdrop' style={backdropImage}>
             <Grid.Column width={4} />
             <Grid.Column width={8} textAlign='center'>
@@ -62,8 +75,18 @@ const MoviePage = ({details, scrapedData, match, movieDetails, cast, crew}) => {
             </Grid.Column>
             <Grid.Column width={4} />
             </Grid.Row>
-            )}
-          <LeftSideList cast={cast} crew={crew} scrapedData={scrapedData} production_companies={production_companies} />
+            <Grid.Row>
+                <LeftSideList cast={cast} crew={crew} scrapedData={scrapedData} production_companies={production_companies} />
+              <Grid.Column width={9}>
+                <List divided relaxed id="productionComp" animated floated="left" >
+                  <Header as="h3" content="News" />
+                  {googleNews}
+                </List>
+              </Grid.Column>
+              <Grid.Column width={4} />
+            </Grid.Row>
+          </React.Fragment>
+        )}
         </Grid>
 
     ) 
@@ -75,7 +98,8 @@ const reduxProps = state => {
     details: state.movieDetail,
     scrapedData: state.scrapedData,
     cast: state.cast,
-    crew: state.crew
+    crew: state.crew,
+    similar: state.similar
   }
 }
 const dispatchRedux = dispatch => {

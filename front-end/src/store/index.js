@@ -25,13 +25,14 @@ export const startAsyncMovieDetails = () => ({
   type: StartAsyncMovieDetails
 })
 
-export const finishAsyncMovieDetails = (results, scrape, cast, crew) => ({
+export const finishAsyncMovieDetails = (results, scrape, cast, crew, similar) => ({
   type: FinishAsyncMovieDetails,
   payload: {
     results,
     scrape, 
     cast, 
-    crew
+    crew,
+    similar,
   }
 })
 
@@ -79,7 +80,14 @@ export const movieDetails = (id) => {
     .then((googleResponse)=>{
       axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=c62a78a0d2d87be14d317940c5c290b5&append_to_response=credits`)
       .then((castResponse)=>{
-        store.dispatch(finishAsyncMovieDetails(detailsResponse.data, googleResponse.data, castResponse.data.credits.cast, castResponse.data.credits.crew))})
+        axios.get(`https://api.themoviedb.org/3/movie/${id}/similar?api_key=c62a78a0d2d87be14d317940c5c290b5&language=en-US&page=1`)
+        .then((similarMoviesRes) => {
+          let crew = castResponse.data.credits.crew.splice(0,10)
+          let cast = castResponse.data.credits.cast.splice(0,10)
+          store.dispatch(finishAsyncMovieDetails(detailsResponse.data, googleResponse.data, cast, crew, similarMoviesRes.data.results ))
+        })
+        })
+
       })
 
   })
@@ -98,7 +106,8 @@ const initialState = {
   results: [],
   movieDetail: [],
   people: [],
-  scrapedData: []
+  scrapedData: [],
+  similar: []
 }
 
 const getDataReducer = (state=initialState, action)=>{
@@ -116,7 +125,12 @@ const getDataReducer = (state=initialState, action)=>{
  }else if(action.type === StartAsyncMovieDetails){
    return{
      ...state,
-     loading: true
+     loading: true,
+     movieDetail: undefined,
+     scrapedData: undefined,
+     cast: undefined,
+     crew: undefined,
+     similar: undefined
    }
  }else if(action.type === FinishAsyncMovieDetails){
    return{
@@ -125,7 +139,8 @@ const getDataReducer = (state=initialState, action)=>{
      movieDetail: action.payload.results,
      scrapedData: action.payload.scrape,
      cast: action.payload.cast,
-     crew: action.payload.crew
+     crew: action.payload.crew,
+     similar: action.payload.similar
    }
  }else if(action.type === StartAsyncPeopleDetails){
    return{

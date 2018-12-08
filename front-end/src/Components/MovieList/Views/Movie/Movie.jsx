@@ -14,7 +14,7 @@ let Movie = ({ title, overview, poster, id, rating, release, movieDetails}) => (
     />
     <Item.Content>
       <ReviewLabel rating={rating} />
-      <NavLink to={`/movie/${id}`} onClick={() => movieDetails(id)}><Item.Header as="h2" content={title} /></NavLink>
+      <NavLink to={`/movie/${id}`} onClick={() => movieDetails(id)}><Item.Header as="h3" content={title} /></NavLink>
 
       <Item.Meta id="itemMeta">
         Release Date: {release}
