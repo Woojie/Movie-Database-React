@@ -1,5 +1,5 @@
 import React from 'react'
-import {Segment, List, Image} from "semantic-ui-react";
+import {List, Image} from "semantic-ui-react";
 
 
 const Production_Comp = ({id, logo, name}) =>(

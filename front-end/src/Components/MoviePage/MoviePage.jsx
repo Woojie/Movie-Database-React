@@ -4,12 +4,14 @@ import "./MoviePage.css";
 import DollarSign from '../DollarSign'
 import ProductionComp from './Production_Comp/Production_Comp'
 import GoogleNews from './GoogleNews'
-import RateAndFav from '../RateAndFav/RateAndFav'
+import RateAndFav from './RateAndFav/RateAndFav'
 import {connect} from 'react-redux'
 import { movieDetails} from '../../store'
+import ShortCast from './ShortCast/ShortCast'
+import ShortCrew from './ShortCrew/ShortCrew'
 
 
-const MoviePage = ({details, scrapedData, match, movieDetails}) => {
+const MoviePage = ({details, scrapedData, match, movieDetails, cast, crew}) => {
   useEffect(()=>{
     let id = match.params.movieId
     movieDetails(id)
@@ -39,9 +41,42 @@ const MoviePage = ({details, scrapedData, match, movieDetails}) => {
       />
     )
 
+    let newCast = cast === undefined ? "" : [
+      cast.length <= 5 ? cast 
+      : cast.slice(0, 5)
+    ]
+    let shortCast = cast === undefined ? "" : newCast[0].map((member)=>
+      <ShortCast 
+        key={member.id}
+        character={member.character}
+        creditId={member.credit_id}
+        id={member.id}
+        gender={member.gender}
+        name={member.name}
+        profile={member.profile_path}
+      />
+    )
+
+    let newCrew = crew === undefined ? "" : [
+      crew.length <= 5 ? crew 
+      : crew.slice(0, 5)
+    ]
+    let shortCrew = crew === undefined ? "" : newCrew[0].map((member)=>
+      <ShortCast 
+        key={member.id}
+        character={member.character}
+        creditId={member.credit_id}
+        id={member.id}
+        gender={member.gender}
+        name={member.name}
+        profile={member.profile_path}
+      />
+    )
+  
+
     return(
       <React.Fragment>
-      <Grid centered inverted>
+      <Grid centered inverted stackable>
         <Grid.Row>
           <Grid.Column width={5} />
           <Grid.Column width={6} textAlign='center'>
@@ -82,18 +117,24 @@ const MoviePage = ({details, scrapedData, match, movieDetails}) => {
             )}
             <Grid.Row>
               
-              <Grid.Column width={4}>
+              <Grid.Column width={3}>
                   <List id="productionComp" animated >
                     <Header as="h3" content="Production Companies" />
                     {companies}
                   </List>
+                  <List divided id="productionComp" animated floated="left" >
+                    <Header as="h3" content="Cast Members" />
+                    {shortCast}
+                    <Header as="a" href="https://developers.themoviedb.org/3/movies/get-movie-keywords" content="Click for Full Cast" />
+                  </List>
               </Grid.Column>
-              <Grid.Column width={12}>
-                <List  relaxed id="productionComp" animated floated="left" >
+              <Grid.Column width={9}>
+                <List divided relaxed id="productionComp" animated floated="left" >
                   <Header as="h3" content="News" />
                   {googleNews}
                 </List>
               </Grid.Column>
+              <Grid.Column width={4} />
             </Grid.Row>
         </Grid>
         </React.Fragment>
@@ -104,7 +145,9 @@ const reduxProps = state => {
   return{
     loading: state.loading,
     details: state.movieDetail,
-    scrapedData: state.scrapedData
+    scrapedData: state.scrapedData,
+    cast: state.cast,
+    crew: state.crew
   }
 }
 const dispatchRedux = dispatch => {
