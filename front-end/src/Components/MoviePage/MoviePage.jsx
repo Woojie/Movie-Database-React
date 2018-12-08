@@ -35,6 +35,7 @@ const MoviePage = ({details, scrapedData, match, movieDetails}) => {
         description={news.description}
         source={news.source}
         date={news.date}
+        img={news.img}
       />
     )
 
@@ -81,14 +82,17 @@ const MoviePage = ({details, scrapedData, match, movieDetails}) => {
             )}
             <Grid.Row>
               
-              <Grid.Column width={6}>
-                  <List id="productionComp" animated floated="left" >
+              <Grid.Column width={4}>
+                  <List id="productionComp" animated >
                     <Header as="h3" content="Production Companies" />
                     {companies}
                   </List>
               </Grid.Column>
-              <Grid.Column width={10}>
-                {googleNews}
+              <Grid.Column width={12}>
+                <List  relaxed id="productionComp" animated floated="left" >
+                  <Header as="h3" content="News" />
+                  {googleNews}
+                </List>
               </Grid.Column>
             </Grid.Row>
         </Grid>

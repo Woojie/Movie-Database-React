@@ -4,7 +4,8 @@ express = require('express'),
 app = (express()),
 bodyParser = require('body-parser'),
 cors = require('cors'),
-port = process.env.PORT || 3030
+port = process.env.PORT || 3030,
+he = require('he')
 
 
 app.use(cors())
@@ -16,18 +17,6 @@ app.listen(port, ()=>{
   console.log(`Listening on ${port}`)
 })
 
-
-
-
-
-
-  app.get('/', (req, res)=>{
-    res.format({
-      text: () => {
-        res.send(table)
-      }
-    })
-  })
 
   app.post('/', (req, res)=>{
     const {title} = req.body
@@ -48,7 +37,12 @@ app.listen(port, ()=>{
       })
 
       $(".st").each(function (i, elem) {
-        table[i] = Object.assign(table[i], {description: $(this).text()})
+        let description = he.decode($(this).text())
+        table[i] = Object.assign(table[i], {description,})
+      })
+
+      $(".th").each(function (i, elem) {
+        table[i] = Object.assign(table[i], {img: $(this).attr('src')})
       })
 
       $(".slp").each(function (i, elem) {
