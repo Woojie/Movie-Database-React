@@ -25,10 +25,11 @@ export const startAsyncMovieDetails = () => ({
   type: StartAsyncMovieDetails
 })
 
-export const finishAsyncMovieDetails = results => ({
+export const finishAsyncMovieDetails = (results, scrape) => ({
   type: FinishAsyncMovieDetails,
   payload: {
-    results
+    results,
+    scrape
   }
 })
 
@@ -71,7 +72,10 @@ export const movieSearch = (query) => {
 export const movieDetails = (id) => {
   store.dispatch(startAsyncMovieDetails())
   axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=c62a78a0d2d87be14d317940c5c290b5`)
-  .then((res)=>store.dispatch(finishAsyncMovieDetails(res.data)))
+  .then((res)=>{
+    axios.post('http://localhost:3030/', {title: res.data.title})
+    .then((response)=>store.dispatch(finishAsyncMovieDetails(res.data, response.data)))
+  })
 }
 
 export const trendyPeople = () => {
@@ -86,7 +90,8 @@ const initialState = {
   loading: true,
   results: [],
   movieDetail: [],
-  people: []
+  people: [],
+  scrapedData: []
 }
 
 const getDataReducer = (state=initialState, action)=>{
@@ -110,7 +115,8 @@ const getDataReducer = (state=initialState, action)=>{
    return{
      ...state,
      loading: false,
-     movieDetail: action.payload.results
+     movieDetail: action.payload.results,
+     scrapedData: action.payload.scrape
    }
  }else if(action.type === StartAsyncPeopleDetails){
    return{

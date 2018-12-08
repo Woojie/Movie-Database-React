@@ -3,17 +3,19 @@ import { Item, Grid, Divider, Header, Segment, Dimmer, Loader, List} from "seman
 import "./MoviePage.css";
 import DollarSign from '../DollarSign'
 import ProductionComp from './Production_Comp/Production_Comp'
+import GoogleNews from './GoogleNews'
 import RateAndFav from '../RateAndFav/RateAndFav'
 import {connect} from 'react-redux'
 import { movieDetails} from '../../store'
 
-const MoviePage = (props) => {
+
+const MoviePage = ({details, scrapedData, match, movieDetails}) => {
   useEffect(()=>{
-    let id = props.match.params.movieId
-    props.movieDetails(id)
+    let id = match.params.movieId
+    movieDetails(id)
   },[])
   
-    let {title, backdrop_path, poster_path, genres, id, production_companies, release_date, revenue, runtime, vote_average, tagline, budget, overview } = props.details === undefined ? "" : props.details
+    let {title, backdrop_path, poster_path, genres, id, production_companies, release_date, revenue, runtime, vote_average, tagline, budget, overview } = details === undefined ? "" : details
     let backdropImage = {
       backgroundImage:`url(http://image.tmdb.org/t/p/w1280/${backdrop_path})`,
       paddingTop: '0'
@@ -25,6 +27,17 @@ const MoviePage = (props) => {
         logo={company.logo_path} 
         name={company.name} />)
     
+    let googleNews = scrapedData === undefined ? "" : scrapedData.map((news,i)=>
+      <GoogleNews
+        key={i}
+        text={news.text}
+        url={news.url}
+        description={news.description}
+        source={news.source}
+        date={news.date}
+      />
+    )
+
     return(
       <React.Fragment>
       <Grid centered inverted>
@@ -37,7 +50,7 @@ const MoviePage = (props) => {
             </Grid.Column>
           <Grid.Column width={5} />
           </Grid.Row>
-          {props.details === undefined ? <Dimmer active><Loader size="massive" /></Dimmer>
+          {details === undefined ? <Dimmer active><Loader size="massive" /></Dimmer>
           :(
           <Grid.Row  id='backdrop' style={backdropImage}>
             <Grid.Column width={4} />
@@ -75,6 +88,7 @@ const MoviePage = (props) => {
                   </List>
               </Grid.Column>
               <Grid.Column width={10}>
+                {googleNews}
               </Grid.Column>
             </Grid.Row>
         </Grid>
@@ -85,7 +99,8 @@ const MoviePage = (props) => {
 const reduxProps = state => {
   return{
     loading: state.loading,
-    details: state.movieDetail
+    details: state.movieDetail,
+    scrapedData: state.scrapedData
   }
 }
 const dispatchRedux = dispatch => {
