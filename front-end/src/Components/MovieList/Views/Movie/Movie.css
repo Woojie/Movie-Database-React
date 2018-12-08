@@ -4,7 +4,7 @@
   margin-bottom: 3em;
   padding: 0;
   text-align: left;
-  background-color: #000000dc
+  background-color: whitesmoke;
 }
 
 #shadows-image {
@@ -15,21 +15,11 @@
   margin-bottom: 0
 }
 
-#itemHeader {
-  color: white;
-
-  text-shadow:
-    -1px -1px 0 #000,
-    1px -1px 0 #000,
-    -1px 1px 0 #000,
-    2px 2px 0 #000;
-}
-
 #itemMeta {
-  color: white;
+  color: black;
 }
 
 #itemInfo {
-  color: rgb(206, 204, 204);
+  color: black;
 }
 

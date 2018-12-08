@@ -47,7 +47,7 @@ const MovieList = ({loading, movieResults, movieDetails, match, getPopularData, 
       <React.Fragment>
       {loading ? <Placeholders />    
       :(
-      <Grid centered inverted>
+      <Grid centered>
         <Grid.Row>
           <Grid.Column width={5} />
           <Grid.Column width={6} textAlign='center'>
