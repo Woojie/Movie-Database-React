@@ -76,7 +76,7 @@ export const movieDetails = (id) => {
   store.dispatch(startAsyncMovieDetails())
   axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=c62a78a0d2d87be14d317940c5c290b5`)
   .then((detailsResponse)=>{
-    axios.post('http://localhost:3030/', {title: detailsResponse.data.title})
+    axios.post('http://localhost:3030/', {title: detailsResponse.data.title, date: detailsResponse.data.release_date})
     .then((googleResponse)=>{
       axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=c62a78a0d2d87be14d317940c5c290b5&append_to_response=credits`)
       .then((castResponse)=>{
@@ -84,7 +84,8 @@ export const movieDetails = (id) => {
         .then((similarMoviesRes) => {
           let crew = castResponse.data.credits.crew.splice(0,10)
           let cast = castResponse.data.credits.cast.splice(0,10)
-          store.dispatch(finishAsyncMovieDetails(detailsResponse.data, googleResponse.data, cast, crew, similarMoviesRes.data.results ))
+          let similarMovies = similarMoviesRes.data.results.length >= 8?  similarMoviesRes.data.results.splice(0, 8): similarMoviesRes.data.results
+          store.dispatch(finishAsyncMovieDetails(detailsResponse.data, googleResponse.data, cast, crew, similarMovies ))
         })
         })
 

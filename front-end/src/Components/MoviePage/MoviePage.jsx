@@ -2,15 +2,15 @@ import React, { useEffect } from 'react'
 import { Item, Grid, Divider, Header, Segment, Dimmer, Loader, List} from "semantic-ui-react";
 import "./MoviePage.css";
 import DollarSign from '../DollarSign'
-
 import RateAndFav from './RateAndFav/RateAndFav'
 import {connect} from 'react-redux'
 import { movieDetails} from '../../store'
 import GoogleNews from './GoogleNews'
 import LeftSideList from './LeftSideList'
+import RightSideList from './RightSideList';
 
 
-const MoviePage = ({details, scrapedData, match, movieDetails, cast, crew}) => {
+const MoviePage = ({details, scrapedData, match, movieDetails, cast, crew, similar}) => {
   useEffect(()=>{
     let id = match.params.movieId
     movieDetails(id)
@@ -76,14 +76,14 @@ const MoviePage = ({details, scrapedData, match, movieDetails, cast, crew}) => {
             <Grid.Column width={4} />
             </Grid.Row>
             <Grid.Row>
-                <LeftSideList cast={cast} crew={crew} scrapedData={scrapedData} production_companies={production_companies} />
+                <LeftSideList cast={cast} crew={crew} production_companies={production_companies} />
               <Grid.Column width={9}>
-                <List divided relaxed id="productionComp" animated floated="left" >
+                <List divided relaxed id="productionComp" verticalAlign="middle" animated >
                   <Header as="h3" content="News" />
                   {googleNews}
                 </List>
               </Grid.Column>
-              <Grid.Column width={4} />
+              <RightSideList similar={similar} />
             </Grid.Row>
           </React.Fragment>
         )}
