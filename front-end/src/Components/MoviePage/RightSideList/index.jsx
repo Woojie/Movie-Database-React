@@ -7,7 +7,6 @@ const RightSideList = ({similar}) => {
 
   let similarMovies = similar === undefined ? "" 
   : similar.map((movies)=><SimilarMovies
-    backdrop = {movies.backdrop_path}
     title = {movies.title}
     rating = {movies.vote_average}
     poster = {movies.poster_path}
