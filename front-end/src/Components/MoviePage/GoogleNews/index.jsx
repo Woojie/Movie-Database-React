@@ -1,20 +1,22 @@
 import React from 'react'
-import {List, Image} from 'semantic-ui-react'
+import {Item, Image} from 'semantic-ui-react'
 
 const GoogleNews = ({text, url, description, source, date, img}) => (
 
   
-  <List.Item>
-    <Image src={img} size="tiny" />
-    <List.Content>
-      <List.Header as='a' href={url} target="_blank">{text}</List.Header>
-      <List.Description>
-        <i>{source}: {date}</i>
-      <br />
+  <Item>
+    <Item.Image src={img} size="tiny" />
+    <Item.Content>
+      <Item.Header as='a' href={url} target="_blank">{text}</Item.Header>
+      <Item.Meta>
+      Source: {source}<br />
+      Date: {date}
+      </Item.Meta>
+      <Item.Description>
       {description}
-      </List.Description>
-    </List.Content>
-  </List.Item>
+      </Item.Description>
+    </Item.Content>
+  </Item>
 )
 
 export default GoogleNews

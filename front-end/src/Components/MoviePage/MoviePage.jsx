@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Item, Grid, Divider, Header, Segment, Dimmer, Loader, List} from "semantic-ui-react";
+import { Item, Grid, Divider, Header, Segment, Dimmer, Loader} from "semantic-ui-react";
 import "./MoviePage.css";
 import DollarSign from '../DollarSign'
 import RateAndFav from './RateAndFav/RateAndFav'
@@ -78,10 +78,11 @@ const MoviePage = ({details, scrapedData, match, movieDetails, cast, crew, simil
             <Grid.Row>
                 <LeftSideList cast={cast} crew={crew} production_companies={production_companies} />
               <Grid.Column width={9}>
-                <List divided relaxed id="productionComp" verticalAlign="middle" animated >
-                  <Header as="h3" content="News" />
+                <Header as="h3" content="News" />
+                <Item.Group divided relaxed id="productionComp" animated >
+                  
                   {googleNews}
-                </List>
+                </Item.Group>
               </Grid.Column>
               <RightSideList similar={similar} />
             </Grid.Row>
