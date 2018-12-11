@@ -3,7 +3,7 @@ import {Route, Switch} from 'react-router-dom';
 import Navbar from './Components/Navbar/Navbar'
 import './App.css';
 import MovieList from './Components/MovieList'
-import MoviePage from './Components/MoviePage/MoviePage'
+import MoviePage from './Components/MoviePage/'
 import TrendyPeople from './Components/TrendyPeople/TrendyPeople'
 
 
