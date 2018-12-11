@@ -19,9 +19,11 @@ app.listen(port, ()=>{
 
 
   app.post('/', (req, res)=>{
-    const {title} = req.body
+    const {title, date} = req.body
     let table = [];
-    let = url = `https://www.google.ca/search?q=${title}&source=lnms&tbm=nws`
+    let year = date.replace(/-(.*)/, "")
+    let = url = `https://www.google.ca/search?q=${title}(${year}film)&source=lnms&tbm=nws`
+
     request(url, function (error, response, body) {
       if (error) {
           console.log("We've encountered an error. " + error)

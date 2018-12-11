@@ -3,7 +3,7 @@ import {Grid, List, Header} from 'semantic-ui-react'
 import ShortCast from './ShortCast/ShortCast'
 import ShortCrew from './ShortCrew/ShortCrew'
 import ProductionComp from './Production_Comp/Production_Comp'
-import GoogleNews from './GoogleNews'
+import uuidv4 from 'uuid/v4'
 
 const LeftSideList = ({cast, crew, scrapedData, production_companies}) => {
 
@@ -14,17 +14,6 @@ const LeftSideList = ({cast, crew, scrapedData, production_companies}) => {
     logo={company.logo_path} 
     name={company.name} />)
 
-let googleNews = scrapedData === undefined ? "" : scrapedData.map((news,i)=>
-  <GoogleNews
-    key={i}
-    text={news.text}
-    url={news.url}
-    description={news.description}
-    source={news.source}
-    date={news.date}
-    img={news.img}
-  />
-)
 
 if(crew !== undefined){
   for(let i = 0; i <crew.length-1;i++){
@@ -43,7 +32,7 @@ let newCast = cast === undefined ? "" : [
 ]
 let shortCast = cast === undefined ? "" : newCast[0].map((member)=>
   <ShortCast 
-    key={member.id}
+    key={uuidv4()}
     character={member.character}
     creditId={member.credit_id}
     id={member.id}
@@ -59,7 +48,7 @@ let newCrew = crew === undefined ? "" : [
 ]
 let shortCrew = crew === undefined ? "" : newCrew[0].map((member)=>
   <ShortCrew 
-    key={member.id}
+    key={uuidv4()}
     job={member.job}
     creditId={member.credit_id}
     id={member.id}
@@ -71,7 +60,7 @@ let shortCrew = crew === undefined ? "" : newCrew[0].map((member)=>
 )
 
   return(
-    <Grid.Row>
+
     <Grid.Column width={3}>
         <List id="productionComp" animated >
           <Header as="h3" content="Production Companies" />
@@ -88,14 +77,7 @@ let shortCrew = crew === undefined ? "" : newCrew[0].map((member)=>
           <Header as="a" href="https://developers.themoviedb.org/3/movies/get-movie-keywords" content="Click for Full Crew" />
         </List>
     </Grid.Column>
-    <Grid.Column width={9}>
-      <List divided relaxed id="productionComp" animated floated="left" >
-        <Header as="h3" content="News" />
-        {googleNews}
-      </List>
-    </Grid.Column>
-    <Grid.Column width={4} />
-  </Grid.Row>
+
   )
 }
 

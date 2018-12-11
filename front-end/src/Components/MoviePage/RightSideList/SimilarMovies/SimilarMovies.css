@@ -1,0 +1,10 @@
+#backdrop-image {
+  background-repeat: no-repeat !important;
+  background-size: cover;
+  background-position: 50% 50% !important;
+
+}
+
+#text{
+  color: whitesmoke
+}

@@ -27,7 +27,8 @@ const Navbar = ({trendyPeople, getPopularData, getHighGrossingData, getHighRated
             </Menu.Item>
           </NavLink>
 
-          <NavLink to='/HighRating' onClick={getHighRatedData}><Menu.Item 
+          <NavLink to='/HighRating' onClick={getHighRatedData}>
+          <Menu.Item 
             as='label'
             name='/HighRating' 
             active={activeItem === '/HighRating'} 

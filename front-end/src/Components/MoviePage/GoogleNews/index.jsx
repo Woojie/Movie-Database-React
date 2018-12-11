@@ -3,8 +3,9 @@ import {List, Image} from 'semantic-ui-react'
 
 const GoogleNews = ({text, url, description, source, date, img}) => (
 
+  
   <List.Item>
-    <Image src={img} />
+    <Image src={img} size="tiny" />
     <List.Content>
       <List.Header as='a' href={url} target="_blank">{text}</List.Header>
       <List.Description>
