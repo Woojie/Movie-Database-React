@@ -1,9 +1,7 @@
-import { createStore, applyMiddleware, combineReducers} from 'redux'
+import { createStore, applyMiddleware} from 'redux'
 import logger from 'redux-logger'
 import axios from 'axios'
-import {movieDetailsReducer} from './reducers/movieDetailsReducer'
-import {getDataReducer} from './reducers/getDataReducer'
-import {getPeopleDataReducer} from './reducers/getPeopleDataReducer'
+import { allReducers } from './reducers'
 
 export const startAsyncData = () => ({
   type: 'START_ASYNC_DATA'
@@ -94,19 +92,6 @@ export const trendyPeople = () => {
   axios.get(`https://api.themoviedb.org/3/person/popular?api_key=c62a78a0d2d87be14d317940c5c290b5&language=en-US&page=1`)
   .then((res)=>store.dispatch(finishAsyncPeopleDetails(res.data.results)))
 }
-
-
-
-
-
-
-
-let allReducers = combineReducers({
-  getDataReducer,
-  movieDetailsReducer,
-  getPeopleDataReducer
-})
-
 const store = createStore(
   allReducers,
   applyMiddleware(logger)

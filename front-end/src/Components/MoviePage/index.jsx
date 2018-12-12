@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { Item, Grid, Divider, Header, Dimmer, Loader} from "semantic-ui-react";
+import React, { useEffect, useState } from 'react'
+import { Item, Grid, Divider, Header, Dimmer, Loader, Button} from "semantic-ui-react";
 import "./MoviePage.css";
 
 import {connect} from 'react-redux'
@@ -11,6 +11,7 @@ import HeaderInfo from './HeaderInfo'
 
 
 const MoviePage = ({details, scrapedData, match, movieDetails, cast, crew, similar}) => {
+  const [fullNews, showMoreNews] =  useState(false)
   useEffect(()=>{
     let id = match.params.movieId
     movieDetails(id)
@@ -21,20 +22,36 @@ const MoviePage = ({details, scrapedData, match, movieDetails, cast, crew, simil
       backgroundImage:`url(http://image.tmdb.org/t/p/w1280/${backdrop_path})`,
       paddingTop: '0'
     }
-
-    let googleNews = scrapedData === undefined ? "" : scrapedData.map((news,i)=>
-  <GoogleNews
-    key={i}
-    text={news.text}
-    url={news.url}
-    description={news.description}
-    source={news.source}
-    date={news.date}
-    img={news.img}
-  />
-)
-
-
+    let googleNews
+    if(scrapedData === undefined ){
+      googleNews = ""
+    }else {
+      if(fullNews){
+        googleNews = scrapedData.map((news,i)=>
+        <GoogleNews
+          key={i}
+          text={news.text}
+          url={news.url}
+          description={news.description}
+          source={news.source}
+          date={news.date}
+          img={news.img}
+        />
+        )
+      }else{
+        googleNews = scrapedData.filter((news,i)=>i<=4).map((news,i)=>
+        <GoogleNews
+          key={i}
+          text={news.text}
+          url={news.url}
+          description={news.description}
+          source={news.source}
+          date={news.date}
+          img={news.img}
+        />
+        )
+      }
+    }
     return(
       <Grid centered inverted stackable>
         {details === undefined ? <Dimmer active><Loader size="massive" /></Dimmer>
@@ -65,9 +82,14 @@ const MoviePage = ({details, scrapedData, match, movieDetails, cast, crew, simil
                 <LeftSideList cast={cast} crew={crew} production_companies={production_companies} />
               <Grid.Column width={9}>
                 <Header as="h3" content="News" />
-                <Item.Group divided relaxed id="productionComp" animated >
+                <Item.Group divided relaxed id="productionComp" >
                   {googleNews}
                 </Item.Group>
+              <Button basic 
+                content={fullNews ? "Less":"More"} 
+                icon={fullNews ? "angle up":"angle down"} 
+                onClick={()=>showMoreNews(!fullNews)} 
+              />
               </Grid.Column>
               <RightSideList similar={similar} />
             </Grid.Row>
