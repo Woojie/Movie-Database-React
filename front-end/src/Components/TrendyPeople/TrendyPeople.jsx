@@ -54,7 +54,7 @@ const TrendyPeople = (props) => {
   
 }
 
-const reduxProps = ({getDataReducer:{loading, people}}) => {
+const reduxProps = ({getPeopleDataReducer:{loading, people}}) => {
   return{
     loading: loading,
     people: people

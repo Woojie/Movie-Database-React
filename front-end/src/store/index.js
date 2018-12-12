@@ -1,32 +1,27 @@
 import { createStore, applyMiddleware, combineReducers} from 'redux'
 import logger from 'redux-logger'
 import axios from 'axios'
-
-
-const StartAsyncData = 'START_ASYNC_DATA'
-const FinishAsyncData = 'FINISH_ASYNC_DATA'
-const StartAsyncMovieDetails = 'START_ASYNC_MOVIE_DETAILS'
-const FinishAsyncMovieDetails = 'FINISH_ASYNC_MOVIE_DETAILS'
-const StartAsyncPeopleDetails = 'START_ASYNC_PEOPLE_DETAILS'
-const FinishAsyncPeopleDetails = 'FINISH_ASYNC_PEOPLE_DETAILS'
+import {movieDetailsReducer} from './reducers/movieDetailsReducer'
+import {getDataReducer} from './reducers/getDataReducer'
+import {getPeopleDataReducer} from './reducers/getPeopleDataReducer'
 
 export const startAsyncData = () => ({
-  type: StartAsyncData
+  type: 'START_ASYNC_DATA'
 })
 
 export const finishAsyncData = results => ({
-  type: FinishAsyncData,
+  type: 'FINISH_ASYNC_DATA',
   payload: {
     results
   }
 })
 
 export const startAsyncMovieDetails = () => ({
-  type: StartAsyncMovieDetails
+  type: 'START_ASYNC_MOVIE_DETAILS'
 })
 
 export const finishAsyncMovieDetails = (results, scrape, cast, crew, similar) => ({
-  type: FinishAsyncMovieDetails,
+  type: 'FINISH_ASYNC_MOVIE_DETAILS',
   payload: {
     results,
     scrape, 
@@ -37,11 +32,11 @@ export const finishAsyncMovieDetails = (results, scrape, cast, crew, similar) =>
 })
 
 export const startAsyncPeopleDetails = () => ({
-  type: StartAsyncPeopleDetails
+  type: 'START_ASYNC_PEOPLE_DETAILS'
 })
 
 export const finishAsyncPeopleDetails = results => ({
-  type: FinishAsyncPeopleDetails,
+  type: 'FINISH_ASYNC_PEOPLE_DETAILS',
   payload: {
     results
   }
@@ -102,76 +97,14 @@ export const trendyPeople = () => {
 
 
 
-const defaultState = {
-  loading: true,
-  results: [],
-  people: [],
 
-}
 
-const movieDetailState = {
-  loading: true,
-  movieDetail: [],
-  scrapedData: [],
-  similar: []
-}
 
-const getDataReducer = (state=defaultState, action)=>{
- if(action.type === StartAsyncData){
-   return{
-     ...state,
-     loading: true
-   }
- }else if(action.type === FinishAsyncData){
-   return{
-     ...state,
-     loading: false,
-     results: action.payload.results
-   }
-
- }else if(action.type === StartAsyncPeopleDetails){
-   return{
-     ...state,
-     loading: true
-   }
- }else if(action.type === FinishAsyncPeopleDetails){
-   return{
-     ...state,
-     loading: false,
-     people: action.payload.results
-   }
- }
- return{state}
-}
-
-const movieDetailsReducer = (state=movieDetailState, action) => {
-  if(action.type === StartAsyncMovieDetails){
-    return{
-      ...state,
-      loading: true,
-      movieDetail: undefined,
-      scrapedData: undefined,
-      cast: undefined,
-      crew: undefined,
-      similar: undefined
-    }
-  }else if(action.type === FinishAsyncMovieDetails){
-    return{
-      ...state,
-      loading: false,
-      movieDetail: action.payload.results,
-      scrapedData: action.payload.scrape,
-      cast: action.payload.cast,
-      crew: action.payload.crew,
-      similar: action.payload.similar
-    }
-  }
-  return state
-}
 
 let allReducers = combineReducers({
   getDataReducer,
-  movieDetailsReducer
+  movieDetailsReducer,
+  getPeopleDataReducer
 })
 
 const store = createStore(
