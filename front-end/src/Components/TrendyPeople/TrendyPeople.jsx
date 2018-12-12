@@ -54,10 +54,10 @@ const TrendyPeople = (props) => {
   
 }
 
-const reduxProps = state => {
+const reduxProps = ({getDataReducer:{loading, people}}) => {
   return{
-    loading: state.loading,
-    people: state.people
+    loading: loading,
+    people: people
   }
 }
 const dispatchRedux = dispatch => {

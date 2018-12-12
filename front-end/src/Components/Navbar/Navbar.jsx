@@ -104,14 +104,6 @@ const Navbar = ({trendyPeople, getPopularData, getHighGrossingData, getHighRated
   
 }
 
-
-const reduxProps = state => {
-  return{
-    loading: state.loading,
-    movieResults: state.results,
-    people: state.people
-  }
-}
 const dispatchRedux = dispatch => {
   return{
     getPopularData: () => getPopularData(),
@@ -122,4 +114,4 @@ const dispatchRedux = dispatch => {
   }
 }
 
-export default connect(reduxProps, dispatchRedux)(Navbar)
+export default connect(dispatchRedux)(Navbar)

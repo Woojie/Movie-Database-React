@@ -77,10 +77,11 @@ const MovieList = ({loading, movieResults, movieDetails, match, getPopularData, 
   
 
 
-const reduxProps = state => {
+const reduxProps = ({getDataReducer}) => {
+  
   return{
-    loading: state.loading,
-    movieResults: state.results
+    loading: getDataReducer.loading,
+    movieResults: getDataReducer.results
   }
 }
 const dispatchRedux = dispatch => {

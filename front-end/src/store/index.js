@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware} from 'redux'
+import { createStore, applyMiddleware, combineReducers} from 'redux'
 import logger from 'redux-logger'
 import axios from 'axios'
 
@@ -102,16 +102,21 @@ export const trendyPeople = () => {
 
 
 
-const initialState = {
+const defaultState = {
   loading: true,
   results: [],
-  movieDetail: [],
   people: [],
+
+}
+
+const movieDetailState = {
+  loading: true,
+  movieDetail: [],
   scrapedData: [],
   similar: []
 }
 
-const getDataReducer = (state=initialState, action)=>{
+const getDataReducer = (state=defaultState, action)=>{
  if(action.type === StartAsyncData){
    return{
      ...state,
@@ -123,26 +128,7 @@ const getDataReducer = (state=initialState, action)=>{
      loading: false,
      results: action.payload.results
    }
- }else if(action.type === StartAsyncMovieDetails){
-   return{
-     ...state,
-     loading: true,
-     movieDetail: undefined,
-     scrapedData: undefined,
-     cast: undefined,
-     crew: undefined,
-     similar: undefined
-   }
- }else if(action.type === FinishAsyncMovieDetails){
-   return{
-     ...state,
-     loading: false,
-     movieDetail: action.payload.results,
-     scrapedData: action.payload.scrape,
-     cast: action.payload.cast,
-     crew: action.payload.crew,
-     similar: action.payload.similar
-   }
+
  }else if(action.type === StartAsyncPeopleDetails){
    return{
      ...state,
@@ -158,10 +144,38 @@ const getDataReducer = (state=initialState, action)=>{
  return{state}
 }
 
+const movieDetailsReducer = (state=movieDetailState, action) => {
+  if(action.type === StartAsyncMovieDetails){
+    return{
+      ...state,
+      loading: true,
+      movieDetail: undefined,
+      scrapedData: undefined,
+      cast: undefined,
+      crew: undefined,
+      similar: undefined
+    }
+  }else if(action.type === FinishAsyncMovieDetails){
+    return{
+      ...state,
+      loading: false,
+      movieDetail: action.payload.results,
+      scrapedData: action.payload.scrape,
+      cast: action.payload.cast,
+      crew: action.payload.crew,
+      similar: action.payload.similar
+    }
+  }
+  return state
+}
 
+let allReducers = combineReducers({
+  getDataReducer,
+  movieDetailsReducer
+})
 
 const store = createStore(
-  getDataReducer,
+  allReducers,
   applyMiddleware(logger)
 )
 

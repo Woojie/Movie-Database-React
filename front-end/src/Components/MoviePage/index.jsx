@@ -78,14 +78,14 @@ const MoviePage = ({details, scrapedData, match, movieDetails, cast, crew, simil
     ) 
 }
 
-const reduxProps = state => {
+const reduxProps = ({movieDetailsReducer:{loading, movieDetail, scrapedData, cast, crew, similar}}) => {
   return{
-    loading: state.loading,
-    details: state.movieDetail,
-    scrapedData: state.scrapedData,
-    cast: state.cast,
-    crew: state.crew,
-    similar: state.similar
+    loading: loading,
+    details: movieDetail,
+    scrapedData:scrapedData,
+    cast: cast,
+    crew: crew,
+    similar: similar
   }
 }
 const dispatchRedux = dispatch => {
