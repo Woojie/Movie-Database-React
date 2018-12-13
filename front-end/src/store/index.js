@@ -2,43 +2,9 @@ import { createStore, applyMiddleware} from 'redux'
 import logger from 'redux-logger'
 import axios from 'axios'
 import { allReducers } from './reducers'
+import { startAsyncData, finishAsyncData, startAsyncMovieDetails, startAsyncPeopleDetails, finishAsyncMovieDetails, finishAsyncPeopleDetails} from './actions'
 
-export const startAsyncData = () => ({
-  type: 'START_ASYNC_DATA'
-})
 
-export const finishAsyncData = results => ({
-  type: 'FINISH_ASYNC_DATA',
-  payload: {
-    results
-  }
-})
-
-export const startAsyncMovieDetails = () => ({
-  type: 'START_ASYNC_MOVIE_DETAILS'
-})
-
-export const finishAsyncMovieDetails = (results, scrape, cast, crew, similar) => ({
-  type: 'FINISH_ASYNC_MOVIE_DETAILS',
-  payload: {
-    results,
-    scrape, 
-    cast, 
-    crew,
-    similar,
-  }
-})
-
-export const startAsyncPeopleDetails = () => ({
-  type: 'START_ASYNC_PEOPLE_DETAILS'
-})
-
-export const finishAsyncPeopleDetails = results => ({
-  type: 'FINISH_ASYNC_PEOPLE_DETAILS',
-  payload: {
-    results
-  }
-})
 
 
 export const getPopularData = () => {

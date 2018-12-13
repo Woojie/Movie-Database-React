@@ -55,6 +55,7 @@ app.listen(port, ()=>{
           date: date[1]
         })
       })
+  
       res.send(table)
     })
 
