@@ -51,7 +51,7 @@ export const movieDetails = (id) => {
         cast = castAndCrew.data.credits.cast.splice(0,10),
         backdrop = backdropImages.data.backdrops
 
-        similarMovies = similarMovies.data.results.length >= 8 ? similarMovies.data.results.splice(0, 8)
+        similarMovies = similarMovies.data.results.length >= 5 ? similarMovies.data.results.splice(0, 5)
         : similarMovies.data.results
         store.dispatch(finishAsyncMovieDetails(details, googleRes, cast, crew, similarMovies, backdrop ))
       })) 

@@ -40,7 +40,7 @@ const MoviePage = ({details, scrapedData, match, movieDetails, cast, crew, simil
         />
         )
       }else{
-        googleNews = scrapedData.filter((news,i)=>i<=4).map((news,i)=>
+        googleNews = scrapedData.filter((news,i)=>i<=3).map((news,i)=>
         <GoogleNews
           key={i}
           text={news.text}
@@ -82,7 +82,7 @@ const MoviePage = ({details, scrapedData, match, movieDetails, cast, crew, simil
             </Grid.Row>
 
             <Grid.Row>
-                <LeftSideList cast={cast} crew={crew} production_companies={production_companies} />
+                <LeftSideList cast={cast} crew={crew} />
               <Grid.Column width={9}>
                 <Header as="h3" content="News" />
                 <Item.Group divided relaxed id="productionComp" >
@@ -94,7 +94,7 @@ const MoviePage = ({details, scrapedData, match, movieDetails, cast, crew, simil
                 onClick={()=>showMoreNews(!fullNews)} 
               />
               </Grid.Column>
-              <RightSideList similar={similar} />
+              <RightSideList similar={similar}  production_companies={production_companies} />
             </Grid.Row>
             <Header as="h1" content="Image Gallery" /> 
             <Grid.Row>

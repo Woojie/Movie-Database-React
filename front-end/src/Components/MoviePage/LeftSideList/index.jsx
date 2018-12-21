@@ -2,18 +2,9 @@ import React from 'react'
 import {Grid, List, Header} from 'semantic-ui-react'
 import ShortCast from './ShortCast/ShortCast'
 import ShortCrew from './ShortCrew/ShortCrew'
-import ProductionComp from './Production_Comp/Production_Comp'
 import uuidv4 from 'uuid/v4'
 
-const LeftSideList = ({cast, crew, scrapedData, production_companies}) => {
-
-  let companies = production_companies === undefined ? "" : production_companies.map((company)=>
-  <ProductionComp 
-    key={company.id} 
-    id={company.id} 
-    logo={company.logo_path} 
-    name={company.name} />)
-
+const LeftSideList = ({cast, crew}) => {
 
 if(crew !== undefined){
   for(let i = 0; i <crew.length-1;i++){
@@ -62,10 +53,6 @@ let shortCrew = crew === undefined ? "" : newCrew[0].map((member)=>
   return(
 
     <Grid.Column width={3}>
-        <List id="productionComp" animated >
-          <Header as="h3" content="Production Companies" />
-          {companies}
-        </List>
         <List divided id="productionComp" animated floated="left" >
           <Header as="h3" content="Cast Members" />
           {shortCast}
