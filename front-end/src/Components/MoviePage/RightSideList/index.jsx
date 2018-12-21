@@ -5,14 +5,15 @@ import ProductionComp from './Production_Comp/Production_Comp'
 
 import uuidv4 from 'uuid/v4'
 
-const RightSideList = ({similar, production_companies}) => {
+const RightSideList = ({similar, production_companies, getProductionCompany, companyResults, companyLoading}) => {
 
   let companies = production_companies === undefined ? "" : production_companies.map((company)=>
   <ProductionComp 
     key={company.id} 
     id={company.id} 
     logo={company.logo_path} 
-    name={company.name} />)
+    name={company.name} 
+  />)
 
 
   let similarMovies = similar === undefined ? "" 

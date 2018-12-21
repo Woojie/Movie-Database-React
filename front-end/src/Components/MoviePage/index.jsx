@@ -3,7 +3,7 @@ import { Item, Grid, Divider, Header, Dimmer, Loader, Button} from "semantic-ui-
 import "./MoviePage.css";
 
 import {connect} from 'react-redux'
-import { movieDetails} from '../../store'
+import { movieDetails, getProductionCompany } from '../../store'
 import GoogleNews from './GoogleNews'
 import LeftSideList from './LeftSideList'
 import RightSideList from './RightSideList';
@@ -17,7 +17,6 @@ const MoviePage = ({details, scrapedData, match, movieDetails, cast, crew, simil
     let id = match.params.movieId
     movieDetails(id)
   },[])
-  
     let {title, backdrop_path, id, production_companies } = details === undefined ? "" : details
     let backdropImage = {
       backgroundImage:`url(http://image.tmdb.org/t/p/w1280/${backdrop_path})`,
@@ -94,7 +93,10 @@ const MoviePage = ({details, scrapedData, match, movieDetails, cast, crew, simil
                 onClick={()=>showMoreNews(!fullNews)} 
               />
               </Grid.Column>
-              <RightSideList similar={similar}  production_companies={production_companies} />
+              <RightSideList 
+                similar={similar}  
+                production_companies={production_companies} 
+              />
             </Grid.Row>
             <Header as="h1" content="Image Gallery" /> 
             <Grid.Row>
@@ -111,7 +113,9 @@ const MoviePage = ({details, scrapedData, match, movieDetails, cast, crew, simil
     ) 
 }
 
-const reduxProps = ({movieDetailsReducer:{loading, movieDetail, scrapedData, cast, crew, similar, backdrop}}) => {
+const reduxProps = ({
+  movieDetailsReducer:{loading, movieDetail, scrapedData, cast, crew, similar, backdrop},
+}) => {
   return{
     loading,
     details: movieDetail,

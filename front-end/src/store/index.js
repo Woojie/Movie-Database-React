@@ -1,9 +1,10 @@
 import { createStore, applyMiddleware} from 'redux'
 import logger from 'redux-logger'
 import axios from 'axios'
+
 import { allReducers } from './reducers'
 import { startAsyncData, finishAsyncData, startAsyncMovieDetails, startAsyncPeopleDetails, finishAsyncMovieDetails, finishAsyncPeopleDetails} from './actions'
-
+import { startGetProductionCompany, finishGetProductionCompany } from './actions/companies'
 
 
 
@@ -65,6 +66,15 @@ export const trendyPeople = () => {
   axios.get(`https://api.themoviedb.org/3/person/popular?api_key=c62a78a0d2d87be14d317940c5c290b5&language=en-US&page=1`)
   .then((res)=>store.dispatch(finishAsyncPeopleDetails(res.data.results)))
 }
+
+export const getProductionCompany = (id) => {
+  store.dispatch(startGetProductionCompany()) 
+  axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=c62a78a0d2d87be14d317940c5c290b5&language=en-US&sort_by=popularity.desc&with_companies=${id}&page=1`)
+  .then((res) => store.dispatch(finishGetProductionCompany(res.data.results)))
+}
+
+
+
 const store = createStore(
   allReducers,
   applyMiddleware(logger)
