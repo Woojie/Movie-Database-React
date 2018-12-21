@@ -3,7 +3,8 @@ const movieDetailState = {
   loading: true,
   movieDetail: [],
   scrapedData: [],
-  similar: []
+  similar: [],
+  backdrop: []
 }
 
 export const movieDetailsReducer = (state=movieDetailState, action) => {
@@ -15,7 +16,7 @@ export const movieDetailsReducer = (state=movieDetailState, action) => {
       scrapedData: undefined,
       cast: undefined,
       crew: undefined,
-      similar: undefined
+      similar: undefined,
     }
   }else if(action.type === 'FINISH_ASYNC_MOVIE_DETAILS'){
     return{
@@ -25,7 +26,8 @@ export const movieDetailsReducer = (state=movieDetailState, action) => {
       scrapedData: action.payload.scrape,
       cast: action.payload.cast,
       crew: action.payload.crew,
-      similar: action.payload.similar
+      similar: action.payload.similar,
+      backdrop: action.payload.backdrop
     }
   }
   return state

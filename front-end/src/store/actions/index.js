@@ -13,7 +13,7 @@ export const startAsyncMovieDetails = () => ({
   type: 'START_ASYNC_MOVIE_DETAILS'
 })
 
-export const finishAsyncMovieDetails = (results, scrape, cast, crew, similar) => ({
+export const finishAsyncMovieDetails = (results, scrape, cast, crew, similar, backdrop) => ({
   type: 'FINISH_ASYNC_MOVIE_DETAILS',
   payload: {
     results,
@@ -21,6 +21,7 @@ export const finishAsyncMovieDetails = (results, scrape, cast, crew, similar) =>
     cast, 
     crew,
     similar,
+    backdrop,
   }
 })
 
