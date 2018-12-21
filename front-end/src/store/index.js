@@ -37,17 +37,16 @@ export const movieDetails = (id) => {
   .then((detailsResponse)=>{
     axios.post('http://localhost:3030/', {title: detailsResponse.data.title, date: detailsResponse.data.release_date})
     .then((googleResponse)=>{
-      axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=c62a78a0d2d87be14d317940c5c290b5&append_to_response=credits`)
-      .then((castResponse)=>{
-        axios.get(`https://api.themoviedb.org/3/movie/${id}/similar?api_key=c62a78a0d2d87be14d317940c5c290b5&language=en-US&page=1`)
-        .then((similarMoviesRes) => {
-          let crew = castResponse.data.credits.crew.splice(0,10)
-          let cast = castResponse.data.credits.cast.splice(0,10)
-          let similarMovies = similarMoviesRes.data.results.length >= 8?  similarMoviesRes.data.results.splice(0, 8): similarMoviesRes.data.results
-          store.dispatch(finishAsyncMovieDetails(detailsResponse.data, googleResponse.data, cast, crew, similarMovies ))
-        })
-        })
-
+      axios.all(
+      [axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=c62a78a0d2d87be14d317940c5c290b5&append_to_response=credits`),
+      axios.get(`https://api.themoviedb.org/3/movie/${id}/similar?api_key=c62a78a0d2d87be14d317940c5c290b5&language=en-US&page=1`)]
+      )
+      .then(axios.spread((castAndCrew, similarMovies)=>{
+        let crew = castAndCrew.data.credits.crew.splice(0,10)
+        let cast = castAndCrew.data.credits.cast.splice(0,10)
+        similarMovies = similarMovies.data.results.length >= 8?  similarMovies.data.results.splice(0, 8): similarMovies.data.results
+        store.dispatch(finishAsyncMovieDetails(detailsResponse.data, googleResponse.data, cast, crew, similarMovies ))
+      })) 
       })
 
   })
