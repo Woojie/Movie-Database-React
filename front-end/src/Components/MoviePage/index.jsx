@@ -8,9 +8,10 @@ import GoogleNews from './GoogleNews'
 import LeftSideList from './LeftSideList'
 import RightSideList from './RightSideList';
 import HeaderInfo from './HeaderInfo'
+import BackdropCarousel from './BackdropCarousel'
 
 
-const MoviePage = ({details, scrapedData, match, movieDetails, cast, crew, similar}) => {
+const MoviePage = ({details, scrapedData, match, movieDetails, cast, crew, similar, backdrops}) => {
   const [fullNews, showMoreNews] =  useState(false)
   useEffect(()=>{
     let id = match.params.movieId
@@ -66,6 +67,7 @@ const MoviePage = ({details, scrapedData, match, movieDetails, cast, crew, simil
             </Grid.Column>
           <Grid.Column width={5} />
           </Grid.Row>
+
           <Grid.Row  id='backdrop' style={backdropImage}>
             <Grid.Column width={4} />
             <Grid.Column width={8} textAlign='center'>
@@ -78,6 +80,7 @@ const MoviePage = ({details, scrapedData, match, movieDetails, cast, crew, simil
             </Grid.Column>
             <Grid.Column width={4} />
             </Grid.Row>
+
             <Grid.Row>
                 <LeftSideList cast={cast} crew={crew} production_companies={production_companies} />
               <Grid.Column width={9}>
@@ -92,6 +95,14 @@ const MoviePage = ({details, scrapedData, match, movieDetails, cast, crew, simil
               />
               </Grid.Column>
               <RightSideList similar={similar} />
+            </Grid.Row>
+            <Header as="h1" content="Image Gallery" /> 
+            <Grid.Row>
+              <Grid.Column width={4} />
+              <Grid.Column width={8}>
+                <BackdropCarousel backdrops = {backdrops} />
+              </Grid.Column>
+              <Grid.Column width={4} />
             </Grid.Row>
           </React.Fragment>
         )}
@@ -108,7 +119,7 @@ const reduxProps = ({movieDetailsReducer:{loading, movieDetail, scrapedData, cas
     cast,
     crew,
     similar,
-    backdrop,
+    backdrops:backdrop,
   }
 }
 const dispatchRedux = dispatch => {
