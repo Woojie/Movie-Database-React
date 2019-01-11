@@ -7,6 +7,7 @@ This project is my project to chnage my express movie database into React form. 
 ## Features already implemented ##
 
 Redux and Hook implemented through most the component, plan to eventually change most if not all components to functions
+# PS Because this uses a beta version of react please run the following command on the frontend: npm i react@next react-router@next --save
 
 Basic functionality of search and specific movielist now made. 
 

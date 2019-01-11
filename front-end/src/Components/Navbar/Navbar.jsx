@@ -3,7 +3,8 @@ import {Menu,Segment, Form, Input, Radio, Button, Icon} from 'semantic-ui-react'
 import {NavLink} from 'react-router-dom';
 import './Navbar.css';
 import {connect} from 'react-redux'
-import {getPopularData, getHighRatedData, getHighGrossingData, movieSearch, trendyPeople} from '../../store'
+import {  trendyPeople } from '../../store'
+import { getPopularData, movieSearch, getHighRatedData, getHighGrossingData } from '../../actions/getMovieListData'
 
 const Navbar = ({trendyPeople, getPopularData, getHighGrossingData, getHighRatedData, movieSearch}) => {
 
@@ -106,12 +107,12 @@ const Navbar = ({trendyPeople, getPopularData, getHighGrossingData, getHighRated
 
 const dispatchRedux = dispatch => {
   return{
-    getPopularData: () => getPopularData(),
-    getHighRatedData: () => getHighRatedData(),
-    getHighGrossingData: () => getHighGrossingData(),
-    movieSearch: (search) => movieSearch(search),
+    getPopularData: () => dispatch(getPopularData()),
+    getHighRatedData: () => dispatch(getHighRatedData()),
+    getHighGrossingData: () => dispatch(getHighGrossingData()),
+    movieSearch: (search) => dispatch(movieSearch(search)),
     trendyPeople: () => trendyPeople()
   }
 }
 
-export default connect(dispatchRedux)(Navbar)
+export default connect(null, dispatchRedux)(Navbar)

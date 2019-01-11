@@ -2,7 +2,8 @@ import React, { useEffect } from 'react';
 import {Grid, Header, Divider, Item} from 'semantic-ui-react'
 import Movie from './Views/Movie/Movie'
 import {connect} from 'react-redux'
-import {getPopularData, getHighRatedData, getHighGrossingData, movieSearch, movieDetails} from '../../store'
+import { movieDetails } from '../../store'
+import { getPopularData, movieSearch, getHighRatedData, getHighGrossingData } from '../../actions/getMovieListData'
 import Placeholders from './Views/Placeholders'
 
 const MovieList = ({loading, movieResults, movieDetails, match, getPopularData, getHighGrossingData, getHighRatedData, movieSearch}) => {
@@ -86,11 +87,11 @@ const reduxProps = ({getDataReducer}) => {
 }
 const dispatchRedux = dispatch => {
   return{
-    getPopularData: () => getPopularData(),
-    getHighRatedData: () => getHighRatedData(),
-    getHighGrossingData: () => getHighGrossingData(),
-    movieSearch: (params) => movieSearch(params),
-    movieDetails: (id) => movieDetails(id)
+    getPopularData: () => dispatch(getPopularData()),
+    getHighRatedData: () => dispatch(getHighRatedData()),
+    getHighGrossingData: () => dispatch(getHighGrossingData()),
+    movieSearch: (params) => dispatch(movieSearch(params)),
+    movieDetails: (id) => movieDetails(id),
   }
 }
 

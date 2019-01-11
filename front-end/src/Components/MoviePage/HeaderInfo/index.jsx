@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Item,  Header, Segment} from "semantic-ui-react"
 import DollarSign from '../../DollarSign'
 import RateAndFav from '../RateAndFav/RateAndFav'
+import BackdropCarousel from '../BackdropCarousel'
 
 const HeaderInfo = ({details:{poster_path, tagline, release_date, runtime, budget, revenue, vote_average, genres, overview}}) => {
   

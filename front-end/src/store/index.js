@@ -1,36 +1,13 @@
 import { createStore, applyMiddleware} from 'redux'
 import logger from 'redux-logger'
 import axios from 'axios'
+import thunk from 'redux-thunk'
 
-import { allReducers } from './reducers'
-import { startAsyncData, finishAsyncData, startAsyncMovieDetails, startAsyncPeopleDetails, finishAsyncMovieDetails, finishAsyncPeopleDetails} from './actions'
-import { startGetProductionCompany, finishGetProductionCompany } from './actions/companies'
+import { allReducers } from '../reducers'
+import {  startAsyncMovieDetails, startAsyncPeopleDetails, finishAsyncMovieDetails, finishAsyncPeopleDetails} from '../actions'
+import { startGetProductionCompany, finishGetProductionCompany } from '../actions/companies'
 
 
-
-export const getPopularData = () => {
-  store.dispatch(startAsyncData())
-  axios.get('https://api.themoviedb.org/3/movie/popular?api_key=c62a78a0d2d87be14d317940c5c290b5&language=en-US&page=1')
-  .then((res)=> store.dispatch(finishAsyncData(res.data.results)))
-}
-
-export const getHighRatedData = () => {
-  store.dispatch(startAsyncData())
-  axios.get(`https://api.themoviedb.org/3/movie/top_rated?api_key=c62a78a0d2d87be14d317940c5c290b5&language=en-US&page=1`)
-  .then((res)=>store.dispatch(finishAsyncData(res.data.results)))
-}
-
-export const getHighGrossingData = () => {
-  store.dispatch(startAsyncData())
-  axios.get('https://api.themoviedb.org/3/discover/movie?api_key=c62a78a0d2d87be14d317940c5c290b5&language=en-US&sort_by=revenue.desc&include_adult=false&include_video=false&page=1')
-  .then((res)=>store.dispatch(finishAsyncData(res.data.results)))
-}
-
-export const movieSearch = (query) => {
-  store.dispatch(startAsyncData())
-  axios.get(`https://api.themoviedb.org/3/search/movie?api_key=c62a78a0d2d87be14d317940c5c290b5&query=${query}`)
-  .then((res)=>store.dispatch(finishAsyncData(res.data.results.filter((movie)=>{return movie.vote_count > 75}))))
-}
 
 export const movieDetails = (id) => {
   store.dispatch(startAsyncMovieDetails())
@@ -77,7 +54,7 @@ export const getProductionCompany = (id) => {
 
 const store = createStore(
   allReducers,
-  applyMiddleware(logger)
+  applyMiddleware(logger, thunk)
 )
 
 export default store

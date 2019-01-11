@@ -1,13 +1,3 @@
-export const startAsyncData = () => ({
-  type: 'START_ASYNC_DATA'
-})
-
-export const finishAsyncData = results => ({
-  type: 'FINISH_ASYNC_DATA',
-  payload: {
-    results
-  }
-})
 
 export const startAsyncMovieDetails = () => ({
   type: 'START_ASYNC_MOVIE_DETAILS'
