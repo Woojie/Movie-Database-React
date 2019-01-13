@@ -1,7 +1,7 @@
-import { tmdb } from '../api/tmdb'
+import { tmdb, tmdbMovie } from '../api/tmdb'
 
 export const getPopularData = () =>  dispatch => {
-  tmdb.get('/3/movie/popular?api_key=c62a78a0d2d87be14d317940c5c290b5&language=en-US&page=1')
+  tmdbMovie.get('popular?api_key=c62a78a0d2d87be14d317940c5c290b5&language=en-US&page=1')
   .then( (res)=>{
 
   dispatch({
@@ -14,7 +14,7 @@ export const getPopularData = () =>  dispatch => {
 }
 
 export const getHighRatedData = () =>  dispatch => {
-  tmdb.get('https://api.themoviedb.org/3/movie/top_rated?api_key=c62a78a0d2d87be14d317940c5c290b5&language=en-US&page=1')
+  tmdbMovie.get('top_rated?api_key=c62a78a0d2d87be14d317940c5c290b5&language=en-US&page=1')
   .then( (res)=>{
 
   dispatch({
@@ -28,7 +28,7 @@ export const getHighRatedData = () =>  dispatch => {
 
 
 export const getHighGrossingData = () =>  dispatch => {
-  tmdb.get('https://api.themoviedb.org/3/discover/movie?api_key=c62a78a0d2d87be14d317940c5c290b5&language=en-US&sort_by=revenue.desc&include_adult=false&include_video=false&page=1')
+  tmdb.get('discover/movie?api_key=c62a78a0d2d87be14d317940c5c290b5&language=en-US&sort_by=revenue.desc&include_adult=false&include_video=false&page=1')
   .then( (res)=>{
 
   dispatch({
@@ -41,7 +41,7 @@ export const getHighGrossingData = () =>  dispatch => {
 }
 
 export const movieSearch = query =>  dispatch => {
-  tmdb.get(`https://api.themoviedb.org/3/search/movie?api_key=c62a78a0d2d87be14d317940c5c290b5&query=${query}`)
+  tmdb.get(`search/movie?api_key=c62a78a0d2d87be14d317940c5c290b5&query=${query}`)
   .then( (res)=>{
 
   dispatch({

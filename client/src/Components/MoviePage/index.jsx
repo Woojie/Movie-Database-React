@@ -1,22 +1,26 @@
 import React, { useEffect, useState } from 'react'
 import { Item, Grid, Divider, Header, Dimmer, Loader, Button} from "semantic-ui-react";
+import {connect} from 'react-redux'
+
 import "./MoviePage.css";
 
-import {connect} from 'react-redux'
 import { getMovieDetails } from '../../actions/movieDetails'
 import GoogleNews from './GoogleNews'
 import LeftSideList from './LeftSideList'
 import RightSideList from './RightSideList';
 import HeaderInfo from './HeaderInfo'
 import BackdropCarousel from './BackdropCarousel'
+import MovieVideos from './MovieVideos'
 
 
-const MoviePage = ({details, scrapedData, match, movieDetails, cast, crew, similar, backdrops}) => {
+const MoviePage = ({ details, scrapedData, match, movieDetails, cast, crew, similar, backdrops, videos }) => {
+
   const [fullNews, showMoreNews] =  useState(false)
   useEffect(()=>{
     let id = match.params.movieId
     movieDetails(id)
   },[])
+
     let {title, backdrop_path, id, production_companies } = details === undefined ? "" : details
     let backdropImage = {
       backgroundImage:`url(http://image.tmdb.org/t/p/w1280/${backdrop_path})`,
@@ -98,13 +102,18 @@ const MoviePage = ({details, scrapedData, match, movieDetails, cast, crew, simil
                 production_companies={production_companies} 
               />
             </Grid.Row>
-            <Header as="h1" content="Image Gallery" /> 
+
             <Grid.Row>
-              <Grid.Column width={4} />
-              <Grid.Column width={8}>
+              <Grid.Column width={1} /> 
+              <Grid.Column width={6} >
+                <Header as="h1" content="Videos" /> 
+                <MovieVideos videos={videos} />
+              </Grid.Column>
+              <Grid.Column width={6}>
+                <Header as="h1" content="Image Gallery" /> 
                 <BackdropCarousel backdrops = {backdrops} />
               </Grid.Column>
-              <Grid.Column width={4} />
+              <Grid.Column width={1} />
             </Grid.Row>
           </React.Fragment>
         )}
@@ -114,7 +123,7 @@ const MoviePage = ({details, scrapedData, match, movieDetails, cast, crew, simil
 }
 
 const reduxProps = ({
-  movieDetailsReducer:{loading, movieDetail, scrapedData, cast, crew, similar, backdrop},
+  movieDetailsReducer:{loading, movieDetail, scrapedData, cast, crew, similar, backdrop, videos},
 }) => {
   return{
     loading,
@@ -124,6 +133,7 @@ const reduxProps = ({
     crew,
     similar,
     backdrops:backdrop,
+    videos,
   }
 }
 const dispatchRedux = dispatch => {

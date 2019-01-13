@@ -1,20 +1,21 @@
 import axios from 'axios'
 
-import { tmdb } from '../api/tmdb'
+import { tmdbMovie } from '../api/tmdb'
 
 export const getMovieDetails = id => dispatch => {
-  tmdb.get(`/3/movie/${id}?api_key=c62a78a0d2d87be14d317940c5c290b5`)
+  tmdbMovie.get(`${id}?api_key=c62a78a0d2d87be14d317940c5c290b5`)
   .then((detailsResponse)=>{
     axios.post('http://localhost:3030/', {title: detailsResponse.data.title, date: detailsResponse.data.release_date})
     .then((googleResponse)=>{
       axios.all(
       [
-        tmdb.get(`/3/movie/${id}?api_key=c62a78a0d2d87be14d317940c5c290b5&append_to_response=credits`),
-        tmdb.get(`/3/movie/${id}/similar?api_key=c62a78a0d2d87be14d317940c5c290b5&language=en-US&page=1`),
-        tmdb.get(`/3/movie/${id}/images?api_key=c62a78a0d2d87be14d317940c5c290b5`)
+        tmdbMovie.get(`${id}?api_key=c62a78a0d2d87be14d317940c5c290b5&append_to_response=credits`),
+        tmdbMovie.get(`${id}/similar?api_key=c62a78a0d2d87be14d317940c5c290b5&language=en-US&page=1`),
+        tmdbMovie.get(`${id}/images?api_key=c62a78a0d2d87be14d317940c5c290b5`),
+        tmdbMovie.get(`${id}/videos?api_key=c62a78a0d2d87be14d317940c5c290b5`)
       ]
       )
-      .then(axios.spread((castAndCrew, similarMovies, backdropImages)=>{
+      .then(axios.spread((castAndCrew, similarMovies, backdropImages, videos)=>{
         let details = detailsResponse.data,
         googleRes = googleResponse.data,
         crew = castAndCrew.data.credits.crew.splice(0,10),
@@ -32,7 +33,8 @@ export const getMovieDetails = id => dispatch => {
             cast, 
             crew,
             similarMovies,
-            backdrop
+            backdrop,
+            videos: videos.data.results
           }
         })
       })) 
