@@ -3,7 +3,7 @@ import { Item, Grid, Divider, Header, Dimmer, Loader, Button} from "semantic-ui-
 import "./MoviePage.css";
 
 import {connect} from 'react-redux'
-import { movieDetails, getProductionCompany } from '../../store'
+import { getMovieDetails } from '../../actions/movieDetails'
 import GoogleNews from './GoogleNews'
 import LeftSideList from './LeftSideList'
 import RightSideList from './RightSideList';
@@ -128,7 +128,7 @@ const reduxProps = ({
 }
 const dispatchRedux = dispatch => {
   return{
-    movieDetails: (id) => movieDetails(id)
+    movieDetails: (id) => dispatch(getMovieDetails(id))
   }
 }
 

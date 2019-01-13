@@ -2,11 +2,11 @@ import React, { useEffect } from 'react';
 import {Grid, Header, Divider, Item} from 'semantic-ui-react'
 import Movie from './Views/Movie/Movie'
 import {connect} from 'react-redux'
-import { movieDetails } from '../../store'
+import { getMovieDetails } from '../../actions/movieDetails'
 import { getPopularData, movieSearch, getHighRatedData, getHighGrossingData } from '../../actions/getMovieListData'
 import Placeholders from './Views/Placeholders'
 
-const MovieList = ({loading, movieResults, movieDetails, match, getPopularData, getHighGrossingData, getHighRatedData, movieSearch}) => {
+const MovieList = ({ loading, movieResults, movieDetails, match, getPopularData, getHighGrossingData, getHighRatedData, movieSearch }) => {
 
 
   useEffect(()=>{
@@ -91,7 +91,7 @@ const dispatchRedux = dispatch => {
     getHighRatedData: () => dispatch(getHighRatedData()),
     getHighGrossingData: () => dispatch(getHighGrossingData()),
     movieSearch: (params) => dispatch(movieSearch(params)),
-    movieDetails: (id) => movieDetails(id),
+    movieDetails: (id) => dispatch(getMovieDetails(id)),
   }
 }
 

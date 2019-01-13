@@ -49,7 +49,7 @@ const Navbar = ({trendyPeople, getPopularData, getHighGrossingData, getHighRated
             </Menu.Item>
           </NavLink>
           
-          <NavLink to='/favorites'><Menu.Item 
+          {/* <NavLink to='/favorites'><Menu.Item 
             name='favorites' 
             as='label'
             active={activeItem === '/favorites'} 
@@ -57,9 +57,9 @@ const Navbar = ({trendyPeople, getPopularData, getHighGrossingData, getHighRated
             <Icon inverted color='green' name='favorite' fitted />
             Favorites
           </Menu.Item>
-          </NavLink>
+          </NavLink> */}
 
-          <NavLink onClick={trendyPeople} to='/people/TrendyPeople'><Menu.Item 
+          {/* <NavLink onClick={trendyPeople} to='/people/TrendyPeople'><Menu.Item 
             name='/TrendyPeople' 
             as='label'
             active={activeItem === '/TrendyPeople'} 
@@ -67,7 +67,7 @@ const Navbar = ({trendyPeople, getPopularData, getHighGrossingData, getHighRated
           <Icon inverted color='green' name='user' fitted />
           Trending People
           </Menu.Item>
-          </NavLink>
+          </NavLink> */}
 
           <Menu.Item position='right'>            
           </Menu.Item>
@@ -80,12 +80,12 @@ const Navbar = ({trendyPeople, getPopularData, getHighGrossingData, getHighRated
                   value='1' 
                   checked={radioCheck==='1'} 
                   onChange={()=>handleRadio('1')}/>
-                <Form.Field 
+                {/* <Form.Field 
                   control={Radio}  
                   label='People'
                   value='2' 
                   checked={radioCheck==='2'} 
-                  onChange={()=>handleRadio('2')} />
+                  onChange={()=>handleRadio('2')} /> */}
 
               <Form.Field onChange={(e)=>handleInput(e.target.value)} control={Input} value={search} placeholder='Search..' />
               <Form.Field>
