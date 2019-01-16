@@ -11,6 +11,9 @@ const ProductionCompany = ({ match, getProductionCompany, name, logo, homepage, 
     getProductionCompany(id)
     
   },[])
+  let hovers = {
+    hover: "left"
+  }
   return (
     <Grid centered inverted stackable>
       <Grid.Row>
@@ -18,11 +21,13 @@ const ProductionCompany = ({ match, getProductionCompany, name, logo, homepage, 
         <Grid.Column width={6} textAlign="center">
           <Divider hidden />
 
-          <Header as='a' content={name} href={homepage} />
+          <Header as='h1'>
+          <Image style={hovers} src={`http://image.tmdb.org/t/p/w1280/${logo}`} size='tiny' />
+          <a href={homepage}>{name}</a>
+          </Header>
           <Divider /> 
-          <Image src={`http://image.tmdb.org/t/p/w1280/${logo}`} size='tiny' />
-          <p><Header as="h3">Headquarters:</Header>{hq}
-          </p>
+
+       
         </Grid.Column>
         <Grid.Column width={5} />
       </Grid.Row>
