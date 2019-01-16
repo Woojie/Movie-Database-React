@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Item, Grid, Divider, Header, Dimmer, Loader, Button} from "semantic-ui-react";
-import {connect} from 'react-redux'
+import { Item, Grid, Divider, Header, Dimmer, Loader, Button } from "semantic-ui-react";
+import { connect } from 'react-redux'
 
 import "./MoviePage.css";
 

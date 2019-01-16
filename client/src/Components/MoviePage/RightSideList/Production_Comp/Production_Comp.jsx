@@ -1,6 +1,5 @@
 import React from 'react'
 import {List, Image} from "semantic-ui-react";
-import {NavLink} from 'react-router-dom';
 
 
 

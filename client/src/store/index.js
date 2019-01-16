@@ -4,7 +4,7 @@ import axios from 'axios'
 import thunk from 'redux-thunk'
 
 import { allReducers } from '../reducers'
-import { startAsyncPeopleDetails, finishAsyncPeopleDetails} from '../actions'
+import { startAsyncPeopleDetails, finishAsyncPeopleDetails } from '../actions'
 
 
 export const trendyPeople = () => {
