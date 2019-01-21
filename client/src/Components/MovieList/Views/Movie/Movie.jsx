@@ -1,10 +1,10 @@
 import React from "react";
-import {Item} from "semantic-ui-react";
+import { Item } from "semantic-ui-react";
 import "./Movie.css";
 import ReviewLabel from '../ReviewLabel'
-import {NavLink} from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
-let Movie = ({ title, overview, poster, id, rating, release, movieDetails}) => (
+let Movie = ({ title, overview, poster, id, rating, release }) => (
 
 
   <Item id="movieItems" label={{corner:'right', content:"hello"}}>
@@ -14,7 +14,7 @@ let Movie = ({ title, overview, poster, id, rating, release, movieDetails}) => (
     />
     <Item.Content>
       <ReviewLabel rating={rating} />
-      <NavLink to={`/movie/${id}`} onClick={() => movieDetails(id)}><Item.Header as="h3" content={title} /></NavLink>
+      <NavLink to={`/movie/${id}`}><Item.Header as="h3" content={title} /></NavLink>
 
       <Item.Meta id="itemMeta">
         Release Date: {release}

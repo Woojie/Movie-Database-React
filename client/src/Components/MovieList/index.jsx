@@ -2,11 +2,11 @@ import React, { useEffect } from 'react';
 import {Grid, Header, Divider, Item} from 'semantic-ui-react'
 import Movie from './Views/Movie/Movie'
 import {connect} from 'react-redux'
-import { getMovieDetails } from '../../actions/movieDetails'
-import { getPopularData, movieSearch, getHighRatedData, getHighGrossingData } from '../../actions/getMovieListData'
-import Placeholders from './Views/Placeholders'
 
-const MovieList = ({ loading, movieResults, movieDetails, match, getPopularData, getHighGrossingData, getHighRatedData, movieSearch }) => {
+import { getPopularData, movieSearch, getHighRatedData, getHighGrossingData } from '../../actions/getMovieListData'
+
+
+const MovieList = ({ movieResults, match, getPopularData, getHighGrossingData, getHighRatedData, movieSearch }) => {
 
 
   useEffect(()=>{
@@ -40,14 +40,12 @@ const MovieList = ({ loading, movieResults, movieDetails, match, getPopularData,
     rating = {movie.vote_average}
     poster = {movie.poster_path}
     release = {movie.release_date}
-    movieDetails = {movieDetails}
+
     />))
     : []
 
   return(
-      <React.Fragment>
-      {loading ? <Placeholders />    
-      :(
+
       <Grid centered>
         <Grid.Row>
           <Grid.Column width={5} />
@@ -71,8 +69,6 @@ const MovieList = ({ loading, movieResults, movieDetails, match, getPopularData,
           <Grid.Column width={4} />
         </Grid.Row>
       </Grid>
-      )}
-      </React.Fragment>
   )
 }
   
@@ -91,7 +87,7 @@ const dispatchRedux = dispatch => {
     getHighRatedData: () => dispatch(getHighRatedData()),
     getHighGrossingData: () => dispatch(getHighGrossingData()),
     movieSearch: (params) => dispatch(movieSearch(params)),
-    movieDetails: (id) => dispatch(getMovieDetails(id)),
+
   }
 }
 
