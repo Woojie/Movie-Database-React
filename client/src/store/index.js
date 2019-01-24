@@ -2,10 +2,13 @@ import { createStore, applyMiddleware} from 'redux'
 import logger from 'redux-logger'
 import axios from 'axios'
 import thunk from 'redux-thunk'
+import createSagaMiddleware from 'redux-saga'
+import { watchAsyncData } from '../sagas/sagaActions'
 
 import { allReducers } from '../reducers'
 import { startAsyncPeopleDetails, finishAsyncPeopleDetails } from '../actions'
 
+const SagaMiddleWare = createSagaMiddleware()
 
 export const trendyPeople = () => {
   store.dispatch(startAsyncPeopleDetails())
@@ -15,7 +18,9 @@ export const trendyPeople = () => {
 
 const store = createStore(
   allReducers,
-  applyMiddleware(logger, thunk)
+  applyMiddleware(SagaMiddleWare, logger, thunk)
 )
+
+SagaMiddleWare.run(watchAsyncData)
 
 export default store

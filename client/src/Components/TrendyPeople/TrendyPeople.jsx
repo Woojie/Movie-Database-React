@@ -2,15 +2,18 @@ import React, { useEffect } from 'react';
 import {Grid, Header, Divider, Item, Loader} from 'semantic-ui-react'
 import People from './People'
 import {connect} from 'react-redux'
-import { trendyPeople } from '../../store'
+import { bindActionCreators } from 'redux'
+import { clickMe } from '../../sagas/sagaActions'
+
 
 const TrendyPeople = (props) => {
 
   useEffect(()=>{
-    props.trendyPeople()
+    props.clickMe()
   },[])
 
     let {loader} = props
+    console.log(props.people)
 
     let people = props.people === undefined ? "" : props.people.map((person)=> 
     <People
@@ -54,16 +57,14 @@ const TrendyPeople = (props) => {
   
 }
 
-const reduxProps = ({getPeopleDataReducer:{loading, people}}) => {
+const reduxProps = ({getSagaPeopleDataReducer:{loading, people}}) => {
   return{
     loading: loading,
     people: people
   }
 }
-const dispatchRedux = dispatch => {
-  return{
-    trendyPeople: () => trendyPeople()
-  }
-}
+const dispatchRedux = dispatch => 
+bindActionCreators({clickMe}, dispatch)
+
 
 export default connect(reduxProps, dispatchRedux)(TrendyPeople)

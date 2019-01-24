@@ -59,7 +59,7 @@ const Navbar = ({trendyPeople, getPopularData, getHighGrossingData, getHighRated
           </Menu.Item>
           </NavLink> */}
 
-          {/* <NavLink onClick={trendyPeople} to='/people/TrendyPeople'><Menu.Item 
+          <NavLink onClick={trendyPeople} to='/people/TrendyPeople'><Menu.Item 
             name='/TrendyPeople' 
             as='label'
             active={activeItem === '/TrendyPeople'} 
@@ -67,7 +67,7 @@ const Navbar = ({trendyPeople, getPopularData, getHighGrossingData, getHighRated
           <Icon inverted color='green' name='user' fitted />
           Trending People
           </Menu.Item>
-          </NavLink> */}
+          </NavLink>
 
           <Menu.Item position='right'>            
           </Menu.Item>

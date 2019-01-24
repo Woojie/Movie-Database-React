@@ -4,6 +4,7 @@ import { movieDetailsReducer } from './movieDetailsReducer'
 import { getDataReducer } from './getDataReducer'
 import { getPeopleDataReducer } from './getPeopleDataReducer'
 import { companyReducer } from './companyReducer'
+import { getSagaPeopleDataReducer } from '../sagas/sagaReducer'
 
 
 export const allReducers = combineReducers({
@@ -11,4 +12,5 @@ export const allReducers = combineReducers({
   getDataReducer,
   getPeopleDataReducer, 
   companyReducer,
+  getSagaPeopleDataReducer
 })
