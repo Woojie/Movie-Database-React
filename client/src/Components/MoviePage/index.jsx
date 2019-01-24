@@ -57,8 +57,9 @@ const MoviePage = ({ details, scrapedData, match, movieDetails, cast, crew, simi
       }
     }
     return(
+
       <Grid centered inverted stackable>
-        {details === undefined ? <Dimmer active><Loader size="massive" /></Dimmer>
+        {details === undefined  ? <Dimmer active><Loader size="massive" /></Dimmer>
         :(
         <React.Fragment>
         <Grid.Row>

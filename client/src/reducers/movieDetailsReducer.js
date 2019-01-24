@@ -10,7 +10,7 @@ export const movieDetailsReducer = (state=movieDetailState, action) => {
 if (action.type === undefined) {
   return {
     ...state,
-    movstateieDetail: undefined,
+    movieDetail: undefined,
     scrapedData: undefined,
     similar: undefined,
     backdrop: undefined
