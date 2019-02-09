@@ -1,8 +1,8 @@
 import React from "react";
-import { Label} from "semantic-ui-react";
+import { Label } from "semantic-ui-react";
 import "./ReviewLabel.css";
 
-let ReviewLabel = ({rating}) => {
+let ReviewLabel = ({ rating }) => {
   let reviewColor;
   if(rating < 11 && rating >= 8.5){
     reviewColor = 'green'
@@ -16,7 +16,7 @@ let ReviewLabel = ({rating}) => {
     reviewColor = 'red'
   }
   return(
-    <Label size='mini' id='review' color={reviewColor} ribbon>{rating}</Label>
+    <Label size='mini' id='review' color={ reviewColor } ribbon> { rating }</Label>
   )
 }
 

@@ -24,7 +24,6 @@ export const getMovieDetails = id => dispatch => {
 
         similarMovies = similarMovies.data.results.length >= 5 ? similarMovies.data.results.splice(0, 5)
         : similarMovies.data.results
-        console.log(details)
         dispatch({
           type: "GET_MOVIE_DETAILS",
           payload: {

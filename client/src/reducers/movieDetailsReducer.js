@@ -6,17 +6,9 @@ const movieDetailState = {
   backdrop: undefined
 }
 
-export const movieDetailsReducer = (state=movieDetailState, action) => {
-if (action.type === undefined) {
-  return {
-    ...state,
-    movieDetail: undefined,
-    scrapedData: undefined,
-    similar: undefined,
-    backdrop: undefined
-  }
 
-}else if(action.type === 'GET_MOVIE_DETAILS'){
+export const movieDetailsReducer = (state=movieDetailState, action) => {
+if(action.type === 'GET_MOVIE_DETAILS'){
     return{
       ...state,
       movieDetail: action.payload.details,

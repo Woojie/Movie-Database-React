@@ -14,14 +14,30 @@ import MovieVideos from './MovieVideos'
 
 
 const MoviePage = ({ details, scrapedData, match, movieDetails, cast, crew, similar, backdrops, videos }) => {
-
+  const [loading, startLoading] = useState(true)
   const [fullNews, showMoreNews] =  useState(false)
+  
   useEffect(()=>{
+    startLoading(true)
     let id = match.params.movieId
-    movieDetails(id)
+    
+  let grabData = (id) => {
+    return new Promise((resolve, reject)=>{
+      resolve(movieDetails(id))
+    })
+  }
+
+    grabData(id)
+    .then(()=>{
+      setTimeout(() => {
+        startLoading(false)
+      }, 1300)
+    })
+
+
   },[])
 
-    let {title, backdrop_path, id, production_companies } = details === undefined ? "" : details
+  let { title, backdrop_path, id, production_companies } = details === undefined ? "" : details
     let backdropImage = {
       backgroundImage:`url(http://image.tmdb.org/t/p/w1280/${backdrop_path})`,
       paddingTop: '0'
@@ -56,10 +72,11 @@ const MoviePage = ({ details, scrapedData, match, movieDetails, cast, crew, simi
         )
       }
     }
+    console.log(loading)
     return(
 
       <Grid centered inverted stackable>
-        {details === undefined  ? <Dimmer active><Loader size="massive" /></Dimmer>
+        {details === undefined || loading ? <Dimmer active><Loader size="massive" /></Dimmer>
         :(
         <React.Fragment>
         <Grid.Row>
