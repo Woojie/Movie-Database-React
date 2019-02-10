@@ -10,9 +10,12 @@ path = require('path');
 
 
 app.use(cors())
+
+app.use(express.static(path.join(__dirname, 'client/build')))
+
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
-app.use(express.static(path.join(__dirname, 'client/build')))
+
 
 
 app.listen(port, ()=>{
