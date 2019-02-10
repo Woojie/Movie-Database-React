@@ -6,7 +6,7 @@ bodyParser = require('body-parser'),
 cors = require('cors'),
 port = process.env.PORT || 3030,
 he = require('he'),
-path = require('path');
+path = require('path')
 
 
 app.use(cors())
