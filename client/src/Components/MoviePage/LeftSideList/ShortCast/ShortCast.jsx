@@ -2,7 +2,7 @@ import React from 'react'
 import {List, Image} from "semantic-ui-react";
 
 
-const ShortCast = ({id, name, profile, character, gender}) =>(
+const ShortCast = ({ id, name, profile, character, gender }) =>(
 
   <List.Item>
     <Image bordered size="mini" src={profile ? `http://image.tmdb.org/t/p/w1280/${profile}` : `/images/no-image.png`} />

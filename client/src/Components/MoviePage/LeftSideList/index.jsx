@@ -4,7 +4,7 @@ import ShortCast from './ShortCast/ShortCast'
 import ShortCrew from './ShortCrew/ShortCrew'
 import uuidv4 from 'uuid/v4'
 
-const LeftSideList = ({cast, crew}) => {
+const LeftSideList = ({ cast, crew }) => {
 
 if(crew !== undefined){
   for(let i = 0; i <crew.length-1;i++){

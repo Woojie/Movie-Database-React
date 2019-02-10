@@ -18,7 +18,7 @@ export const trendyPeople = () => {
 
 const store = createStore(
   allReducers,
-  applyMiddleware(SagaMiddleWare, logger, thunk)
+  applyMiddleware(SagaMiddleWare, thunk)
 )
 
 SagaMiddleWare.run(watchAsyncData)

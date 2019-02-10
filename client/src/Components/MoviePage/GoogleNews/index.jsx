@@ -1,7 +1,7 @@
 import React from 'react'
 import {Item} from 'semantic-ui-react'
 
-const GoogleNews = ({text, url, description, source, date, img}) => (
+const GoogleNews = ({ text, url, description, source, date, img }) => (
 
   
   <Item>

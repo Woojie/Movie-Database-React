@@ -5,12 +5,14 @@ app = (express()),
 bodyParser = require('body-parser'),
 cors = require('cors'),
 port = process.env.PORT || 3030,
-he = require('he')
+he = require('he'),
+path = require('path');
 
 
 app.use(cors())
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
+app.use(express.static(path.join(__dirname, 'client/build')))
 
 
 app.listen(port, ()=>{
